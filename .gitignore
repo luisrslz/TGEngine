@@ -1,0 +1,65 @@
+# ===============================
+# Build directories
+# ===============================
+/build/
+/Release/
+/Debug/
+/bin/
+/CMakeFiles/
+/CMakeCache.txt
+/*.cmake
+/Makefile
+/*.sln
+/*.vcxproj*
+/*.user
+/*.ipch
+/*.pdb
+/*.obj
+/*.o
+/*.a
+/*.lib
+/*.dll
+/*.so
+/*.dylib
+TGEngine
+
+# ===============================
+# OS-specific
+# ===============================
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Linux
+*~
+# KDE/Qt
+*.kate-swp
+*.swp
+
+# Windows
+Thumbs.db
+Desktop.ini
+
+# ===============================
+# IDE-specific
+# ===============================
+# Visual Studio
+.vscode/
+*.VC.db
+*.VC.VC.opendb
+.cache
+
+# CLion
+.idea/
+*.iml
+
+# Others
+*.log
+*.tmp
+
+# ===============================
+# Generated files
+# ===============================
+/compile_commands.json
+
