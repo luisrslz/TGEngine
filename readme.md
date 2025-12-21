@@ -8,12 +8,12 @@ A fast, multithreaded C++ engine for simulating the card game **“The Game”**
 > It is not affiliated with or endorsed by NSV or Steffen Benndorf.
 
 ---
-## 📼 Demo
+## Demo
 ![Demo](demo.gif)
 
 ---
 
-## 🎯 Purpose
+## Purpose
 
 This engine simulates complete rounds of *The Game* to analyze:
 
@@ -27,7 +27,7 @@ It is designed for speed and clarity, using **multithreading** to distribute sim
 
 ---
 
-## 🧠 How It Works
+## How It Works
 
 1. The user selects the number of players (1–5).  
 2. The user enters the number of simulations (“repetitions”).  
@@ -36,7 +36,7 @@ It is designed for speed and clarity, using **multithreading** to distribute sim
 
 ---
 
-## ⚙️ Features
+## Features
 
 - Supports Windows, Linux and macOS
 - Written in C++  
@@ -52,7 +52,7 @@ It is designed for speed and clarity, using **multithreading** to distribute sim
 
 ---
 
-## 🚀 Build & Run
+## Build & Run
 
 ### Requirements
 - C++20 or newer  
@@ -73,6 +73,6 @@ _Windows: If you have any errors or your program doesn't run as expected, openin
 
 ---
 
-## 📄 License
+## License
 This project is licensed under the **MIT** License.  
 See the `LICENSE` file for details.
