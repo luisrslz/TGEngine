@@ -188,6 +188,8 @@ bool Player::bestMove() {
             return true;
         }
 
+        stats::usedStack(bestMove.second);
+
         // Automatically play the best move
         removeHandCard(bestMove.first);
         m_game.setTopCard(bestMove.second, bestMove.first);
