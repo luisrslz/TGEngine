@@ -1,6 +1,8 @@
 #pragma once
 
 #include <atomic>
+#include <limits>
+#include <string>
 
 namespace stats {
 
@@ -8,7 +10,7 @@ inline std::atomic<unsigned long long> wins {}; // total wins
 inline std::atomic<unsigned long long> losses {}; // total losses
 inline std::atomic<unsigned long long> leftOvers{}; // total leftover cards
 
-inline std::atomic<unsigned long long> minLeftOver{}; // best lost game (fewest leftover cards)
+inline std::atomic<unsigned long long> minLeftOver{std::numeric_limits<unsigned long long>::max()}; // best lost game (fewest leftover cards)
 inline std::atomic<unsigned long long> maxLeftOver{}; // worst lost game (most leftover cards)
 
 inline std::atomic<unsigned long long> totalRounds{}; // total rounds played
