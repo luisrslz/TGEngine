@@ -15,7 +15,7 @@ A fast, multithreaded C++ engine for simulating the card game **“The Game”**
 
 ## Purpose
 
-This engine simulates complete rounds of *The Game* to analyze:
+This engine simulates complete rounds of *"The Game"* to analyze:
 
 - win probability  
 - average leftover cards  
