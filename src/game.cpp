@@ -5,6 +5,11 @@
 #include <random>
 #include <vector>
 
+namespace {
+// Thread-local random generator for better performance (initialized once per thread)
+thread_local std::mt19937 g_rng{std::random_device{}()};
+}
+
 int Game::stackSize() const noexcept { return stackPile.size(); }
 
 const std::array<int, 4>& Game::getTopCards() const { return topCards; }
@@ -27,10 +32,7 @@ Game::Game() {
     for (unsigned int card = LOWEST_CARD; card <= HIGHEST_CARD; ++card) {
         stackPile.push_back(card);
     }
-    // Shuffle stackpile using thread-local random generator for better performance
-    thread_local std::mt19937 g{std::random_device{}()};
-
-    std::shuffle(stackPile.begin(), stackPile.end(), g);
+    std::shuffle(stackPile.begin(), stackPile.end(), g_rng);
 
     leftOver = stackPile.size();
 }
