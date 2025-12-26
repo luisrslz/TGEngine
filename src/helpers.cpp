@@ -9,14 +9,15 @@
 #endif // _WIN32
 
 void askPlayerCount(unsigned int &playerCount) {
-    std::cout << YELLOW << "\nPlease enter the amount of player(s)! (1-" << MAX_PLAYERS << ")\n"
-              << RESET << "-> ";
+    std::cout << config::YELLOW << "\nPlease enter the amount of player(s)! (1-" << config::MAX_PLAYERS << ")\n"
+              << config::RESET << "-> ";
     std::cin >> playerCount;
-    while (playerCount < 1 || playerCount > MAX_PLAYERS || !std::cin) {
+    while (playerCount < 1 || playerCount > config::MAX_PLAYERS || !std::cin) {
         handleInputFailure();
-        std::cout << RED << "ERROR." << YELLOW << "\n\nPlease enter a valid amount! (1-"
-                  << MAX_PLAYERS << ")\n"
-                  << RESET << "-> ";
+        std::cout << config::RED << "ERROR." 
+                  << config::YELLOW << "\n\nPlease enter a valid amount! (1-"
+                  << config::MAX_PLAYERS << ")\n"
+                  << config::RESET << "-> ";
         std::cin >> playerCount;
     }
 }

@@ -9,7 +9,7 @@ unsigned int Player::getCardCount() const { return handCards.size(); }
 
 void Player::drawCards() {
 
-    while (handCards.size() != MAX_HANDCARDS) {
+    while (handCards.size() != config::MAX_HANDCARDS) {
         // Abort drawing if the stack is empty
         if (m_game.stackSize() == 0) {
             break;

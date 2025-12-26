@@ -30,7 +30,7 @@ bool runGameLoop(std::vector<Player> &players, unsigned int playerCount, Game &g
         }
 
         // -> Draw Cards
-        if (players[currentPlayer].getCardCount() != MAX_HANDCARDS && game.stackSize() > 0) {
+        if (players[currentPlayer].getCardCount() != config::MAX_HANDCARDS && game.stackSize() > 0) {
             players[currentPlayer].drawCards();
         }
 
@@ -75,11 +75,11 @@ int main() {
     askPlayerCount(playerCount);
 
     // set according to instructions
-    MAX_HANDCARDS = (playerCount >= 3 ? 6 : (playerCount == 2 ? 7 : 8));
+    config::MAX_HANDCARDS = (playerCount >= 3 ? 6 : (playerCount == 2 ? 7 : 8));
 
     // Amount of repetitions
     unsigned long long repetitions;
-    std::cout << YELLOW << "Repetions?" << RESET << "\n-> ";
+    std::cout << config::YELLOW << "Repetions?" << config::RESET << "\n-> ";
     std::cin >> repetitions;
 
     // -------------- MULTI-THREAD ----------------
@@ -121,13 +121,13 @@ int main() {
     // --------------- END ----------
 
     // Final output
-    std::cout << CYAN << "\n\nFinished.\n"
-              << GREEN << "Wins: " << wins
-              << RED << "\nLosses: " << losses << RESET 
-              << BLUE << "\nWin-Rate: " << std::fixed << std::setprecision(2)
+    std::cout << config::CYAN << "\n\nFinished.\n"
+              << config::GREEN << "Wins: " << wins
+              << config::RED << "\nLosses: " << losses << config::RESET 
+              << config::BLUE << "\nWin-Rate: " << std::fixed << std::setprecision(2)
               << (static_cast<double>(wins) / (wins + losses) * 100.0) << "%\n" 
               << "Average leftover cards: " << static_cast<double>(leftOvers) / repetitions
-              << RESET;
+              << config::RESET;
 
     return 0;
 }

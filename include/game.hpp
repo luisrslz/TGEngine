@@ -19,7 +19,7 @@ class Game {
     // getter for leftOver
     int getLeftOver() const;
 
-    // Removes last card from stackPile and returns it 
+    // Removes last card from stackPile and returns it
     int drawCard();
 
     // getter for topCards
@@ -30,12 +30,13 @@ class Game {
 
   private:
     // stack where players draw from
-    std::vector<int> stackPile {}; 
+    std::vector<int> stackPile{};
 
     // Up: 0, 1 <---> Down: 2, 3
-    // stack / pile on which cards are played 
-    std::array<int, 4> topCards{UP_START, UP_START, DOWN_START, DOWN_START};
-    
+    // stack / pile on which cards are played
+    std::array<int, 4> topCards{config::UP_START, config::UP_START, config::DOWN_START,
+                                config::DOWN_START};
+
     // How many cards are left, gets defined in constructor
     unsigned int leftOver{};
 };
