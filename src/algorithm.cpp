@@ -24,6 +24,8 @@ static constexpr std::array<Special, 4> specialRules {{
     {DOWN2, 10, false}
 }};
 
+// checks if card is within privilege range of top card
+// card: 92, range: 3, top: 89 -> true
 bool inPrivRange(int top, int card, bool isUp) {
     if (isUp) {
         return top < card && top + PRIVILEGE_RANGE >= card;

@@ -1,6 +1,5 @@
 #include <chrono>
 #include <iomanip>
-#include <ios>
 #include <iostream>
 #include <vector>
 
@@ -9,8 +8,8 @@
 
 #include "config.hpp"
 #include "game.hpp"
-#include "helpers.hpp" // Helper function to make sure wrong input format doesnt lead to crash
-#include "player.hpp"  // player class
+#include "helpers.hpp"
+#include "player.hpp" 
 
 // stats
 std::atomic<unsigned long long> wins {};
@@ -53,6 +52,7 @@ bool runGameLoop(std::vector<Player> &players, unsigned int playerCount, Game &g
     }
 }
 
+// Work function for each thread
 void threadWork(unsigned long long iterations, unsigned int playerCount) {
     for (unsigned long long i = 0; i < iterations; ++i) {
         Game game;
@@ -85,6 +85,7 @@ int main() {
     // -------------- MULTI-THREAD ----------------
 
     int numThreads = std::thread::hardware_concurrency();
+    // safety
     if (numThreads == 0) numThreads = 4;
 
     int repsPerThread = repetitions / numThreads;
@@ -93,6 +94,8 @@ int main() {
     std::vector<std::thread> threads;
 
     std::cout << "\nCalculating...\n";
+
+    //put all threads to work
     for (int i = 1; i <= numThreads; ++i) {
         int rep = repsPerThread;
         if (i == numThreads) {
@@ -103,11 +106,14 @@ int main() {
     }
     repsPerThread -= remains; // reset this if needed in the future
 
+    // Print 
+    // this thread could also work but whatever...
     while (losses + wins < repetitions) {
         std::cout << "\r" << losses + wins;
-        std::this_thread::sleep_for(std::chrono::milliseconds(5));
+        std::this_thread::sleep_for(std::chrono::milliseconds(10));
     }
 
+    // wait for all threads to finish
     for (auto &t : threads) {
         t.join();
     }
