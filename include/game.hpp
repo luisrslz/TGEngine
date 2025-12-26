@@ -36,6 +36,6 @@ class Game {
     // stack / pile on which cards are played 
     std::array<int, 4> topCards{UP_START, UP_START, DOWN_START, DOWN_START};
     
-    // How many cards are left
-    unsigned int leftOver{98};
+    // How many cards are left, gets defined in constructor
+    unsigned int leftOver{};
 };
