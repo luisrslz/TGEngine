@@ -5,9 +5,9 @@
 #include <random>
 #include <vector>
 
-int Game::stackSize() { return stackPile.size(); }
+int Game::stackSize() const { return stackPile.size(); }
 
-std::array<int, 4> Game::getTopCards() { return topCards; }
+std::array<int, 4> Game::getTopCards() const { return topCards; }
 
 void Game::setTopCard(int pile, int card) {
 
@@ -16,7 +16,7 @@ void Game::setTopCard(int pile, int card) {
 
 void Game::decrementLeftOver() { --leftOver; }
 
-int Game::getLeftOver() { return leftOver; }
+int Game::getLeftOver() const { return leftOver; }
 
 int Game::drawCard() {
     int card = stackPile.back();

@@ -16,5 +16,6 @@ void clearScreen();
 // Self explanatory
 void askPlayerCount(unsigned int &playerCount);
 
+// creates the players, performs initial draw and connects them to the game
 std::vector<Player> createPlayers(unsigned int playerCount, Game &game);
 

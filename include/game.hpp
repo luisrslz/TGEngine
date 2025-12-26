@@ -7,28 +7,35 @@
 
 class Game {
   public:
+    // constructor initializes the stackPile and shuffles it
     Game();
 
-    int stackSize();
+    // simple getter with stackPile.size()
+    int stackSize() const;
 
+    // leftOver gets decremented when a card is played -= 1
     void decrementLeftOver();
 
-    int getLeftOver();
+    // getter for leftOver
+    int getLeftOver() const;
 
-    // To automatically draw last card from vector
+    // Removes last card from stackPile and returns it 
     int drawCard();
 
-    std::array<int, 4> getTopCards();
+    // getter for topCards
+    std::array<int, 4> getTopCards() const;
 
+    // set topCards.at(pile) = card (after a card is played)
     void setTopCard(int pile, int card);
 
   private:
-
-    std::vector<int> stackPile {}; // stack where players draw from
+    // stack where players draw from
+    std::vector<int> stackPile {}; 
 
     // Up: 0, 1 <---> Down: 2, 3
+    // stack / pile on which cards are played 
     std::array<int, 4> topCards{UP_START, UP_START, DOWN_START, DOWN_START};
-
+    
     // How many cards are left
     unsigned int leftOver{98};
 };

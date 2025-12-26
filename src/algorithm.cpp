@@ -1,6 +1,5 @@
 
 #include "config.hpp"
-#include "game.hpp"
 #include "player.hpp"
 
 #include <algorithm>
@@ -89,7 +88,7 @@ std::pair<unsigned int, unsigned int> Player::calculateMove() {
     // Save to spare call each time 
     auto currentTopCards = m_game.getTopCards();
 
-    // First: Pile, Second: Card
+    // First: Card, Second: Stack
     std::pair<unsigned int, unsigned int> bestMove {};
 
     // Safes for each card <int, ...> the smallest diff and according stack >>->
