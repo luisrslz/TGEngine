@@ -8,9 +8,11 @@ class Player {
   public:
     Player(Game& game);
 
-    unsigned int getCardCount(); // returns length of handCard Vector
+    // returns length of handCard Vector
+    unsigned int getCardCount() const; 
 
-    void drawCards(); // --> draw card procedure (inc. text output)
+    // --> draw card procedure
+    void drawCards(); 
 
      /* ------- MOVE CALCULATION ----- */
 
@@ -33,15 +35,14 @@ class Player {
 
     /* --------------------  */
 
+    // removes a card from handCards
     void removeHandCard(int card);
 
   private:
-    Game &m_game; // -> each player has a reference to his game
+    // -> each player has a reference to his game to interact with it
+    Game &m_game; 
 
-    //std::string m_name; // name of player
-
+    // player's handcards {42, 67, 89, ...}
     std::vector<int> handCards;
-
-
 
 };

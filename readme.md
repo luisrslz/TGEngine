@@ -40,7 +40,7 @@ It is designed for speed and clarity, using **multithreading** to distribute sim
 
 - Supports Windows, Linux and macOS
 - Written in C++  
-- Multithreaded for maximum performance
+- Multithreaded
 - Implements: 
   - Player selection from 1-5
   - ±10 special rule  

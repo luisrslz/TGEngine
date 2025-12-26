@@ -1,18 +1,13 @@
 #include "player.hpp"
-// #include "controlInput.hpp"
 #include "config.hpp"
 
 #include <algorithm>
-#include <stdexcept>
 
 Player::Player(Game &game) : m_game(game) {}
 
-unsigned int Player::getCardCount() { return handCards.size(); }
+unsigned int Player::getCardCount() const { return handCards.size(); }
 
 void Player::drawCards() {
-    if (handCards.size() == MAX_HANDCARDS) {
-        throw std::logic_error("Logic error in drawCard()");
-    }
 
     while (handCards.size() != MAX_HANDCARDS) {
         // Abort drawing if the stack is empty
@@ -27,6 +22,5 @@ void Player::drawCards() {
 }
 
 void Player::removeHandCard(int card) {
-
     handCards.erase(std::remove(handCards.begin(), handCards.end(), card), handCards.end());
 }
