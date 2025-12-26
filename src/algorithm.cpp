@@ -6,7 +6,6 @@
 #include <algorithm>
 #include <array>
 #include <limits>
-#include <map>
 #include <utility>
 
 // Stores: The Stack, 
@@ -35,13 +34,13 @@ bool inPrivRange(int top, int card, bool isUp) {
 
 bool Player::movePrivilege() {
     // Save to spare call each time
-    auto currentTopCards = m_game.getTopCards();
+    const auto& currentTopCards = m_game.getTopCards();
 
     for (auto card : handCards) {
 
         for (const auto& r : specialRules) {
 
-            const int top = currentTopCards.at(r.stack);
+            const int top = currentTopCards[r.stack];
             // SPECIAL RULE ? 
             if (card == top + r.diff) {
                 return true;
@@ -87,24 +86,22 @@ void Player::predictSpecial(std::pair<unsigned int, unsigned int>& bestMove) {
 std::pair<unsigned int, unsigned int> Player::calculateMove() {
 
     // Save to spare call each time 
-    auto currentTopCards = m_game.getTopCards();
+    const auto& currentTopCards = m_game.getTopCards();
 
-    // First: Pile, Second: Card
+    // First: Card, Second: Pile
     std::pair<unsigned int, unsigned int> bestMove {};
 
-    // Safes for each card <int, ...> the smallest diff and according stack >>->
-    // smallestDiffs.at(32) = {4, UP2}
-    std::map<int, std::pair<int, int>> smallestDiff;
+    // Track the overall smallest difference and its corresponding card/pile
+    int overallSmallestDiff = std::numeric_limits<int>::max();
 
     bool privilege{false}; // -> store if our move is of type "special"
 
-    // Iterate through every handcard and set
-    // smallestDiff for each
+    // Iterate through every handcard and find the best move directly
     for (auto card : handCards) {
 
         // Special Rule possible ?
         for (const auto& r : specialRules) {
-            if (card == currentTopCards.at(r.stack) + r.diff) {
+            if (card == currentTopCards[r.stack] + r.diff) {
                 bestMove = {card, r.stack};
                 privilege = true;
             }
@@ -116,37 +113,26 @@ std::pair<unsigned int, unsigned int> Player::calculateMove() {
         }
 
         std::array<int, 4> allDiffs{
-            card - currentTopCards.at(UP1),
-            card - currentTopCards.at(UP2),
-            currentTopCards.at(DOWN1) - card,
-            currentTopCards.at(DOWN2) - card
+            card - currentTopCards[UP1],
+            card - currentTopCards[UP2],
+            currentTopCards[DOWN1] - card,
+            currentTopCards[DOWN2] - card
         };
 
-        // Now find the closest difference (ignore negative values)
-        int closest = std::numeric_limits<int>::max();
+        // Now find the closest difference (ignore negative values) and track overall best
         for (size_t pile = 0; pile < allDiffs.size(); ++pile) {
-            const int diff = allDiffs.at(pile);
+            const int diff = allDiffs[pile];
 
             // Ignore negatives
             if (diff < 0) {
                 continue;
             }
 
-            if (diff < closest) {
-                // Overwrite the closest until it finally is the closest obv.-
-                smallestDiff[card] = {diff, pile};
-                closest = diff;
+            if (diff < overallSmallestDiff) {
+                overallSmallestDiff = diff;
+                bestMove = {card, pile};
             }
         }
-    }
-
-    // Now iterate through the map and find the overall smallest Difference
-    if (!privilege) {
-        auto temp = std::min_element(
-            smallestDiff.begin(), smallestDiff.end(),
-            [](const auto &a, const auto &b) { return a.second.first < b.second.first; });
-
-        bestMove = {temp->first, temp->second.second};
     }
 
     // Check if we can make the best move even better by predicting

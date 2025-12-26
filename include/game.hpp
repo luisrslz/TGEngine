@@ -9,16 +9,16 @@ class Game {
   public:
     Game();
 
-    int stackSize();
+    int stackSize() const noexcept;
 
-    void decrementLeftOver();
+    void decrementLeftOver() noexcept;
 
-    int getLeftOver();
+    int getLeftOver() const noexcept;
 
     // To automatically draw last card from vector
     int drawCard();
 
-    std::array<int, 4> getTopCards();
+    const std::array<int, 4>& getTopCards() const;
 
     void setTopCard(int pile, int card);
 

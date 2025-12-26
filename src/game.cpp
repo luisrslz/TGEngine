@@ -5,18 +5,17 @@
 #include <random>
 #include <vector>
 
-int Game::stackSize() { return stackPile.size(); }
+int Game::stackSize() const noexcept { return stackPile.size(); }
 
-std::array<int, 4> Game::getTopCards() { return topCards; }
+const std::array<int, 4>& Game::getTopCards() const { return topCards; }
 
 void Game::setTopCard(int pile, int card) {
-
-    topCards.at(pile) = card;
+    topCards[pile] = card;
 }
 
-void Game::decrementLeftOver() { --leftOver; }
+void Game::decrementLeftOver() noexcept { --leftOver; }
 
-int Game::getLeftOver() { return leftOver; }
+int Game::getLeftOver() const noexcept { return leftOver; }
 
 int Game::drawCard() {
     int card = stackPile.back();
@@ -28,9 +27,8 @@ Game::Game() {
     for (unsigned int card = LOWEST_CARD; card <= HIGHEST_CARD; ++card) {
         stackPile.push_back(card);
     }
-    // Shuffle stackpile
-    std::random_device rd;
-    std::mt19937 g(rd());
+    // Shuffle stackpile using thread-local random generator for better performance
+    thread_local std::mt19937 g{std::random_device{}()};
 
     std::shuffle(stackPile.begin(), stackPile.end(), g);
 
