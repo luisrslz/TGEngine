@@ -39,7 +39,7 @@ bool runGameLoop(std::vector<Player> &players, unsigned int playerCount, Game &g
         ++stats::totalRounds; // one round completed
     }
     
-    stats::leftOvers += game.getLeftOver();
+    stats::handleLeftOver(game.getLeftOver());
 
     if (game.getLeftOver() == 0) {
         return true; // Won
