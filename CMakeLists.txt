@@ -12,7 +12,6 @@ endif()
 set(SOURCES
     src/main.cpp
     src/algorithm.cpp
-    src/config.cpp
     src/game.cpp
     src/helpers.cpp
     src/player.cpp

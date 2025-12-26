@@ -8,7 +8,8 @@
 class Game {
   public:
     // constructor initializes the stackPile and shuffles it
-    Game();
+    // playerCount needed for maxHandCards
+    Game(const unsigned int& playerCount);
 
     // simple getter with stackPile.size()
     int stackSize() const;
@@ -28,6 +29,9 @@ class Game {
     // set topCards.at(pile) = card (after a card is played)
     void setTopCard(int pile, int card);
 
+    // getter for maxHandCards
+    unsigned int getMaxHandCards() const; 
+
   private:
     // stack where players draw from
     std::vector<int> stackPile{};
@@ -37,6 +41,11 @@ class Game {
     std::array<int, 4> topCards{config::UP_START, config::UP_START, config::DOWN_START,
                                 config::DOWN_START};
 
-    // How many cards are left, gets defined in constructor
+    // how many cards are left, gets defined in constructor
     unsigned int leftOver{};
+
+    // determines how many handcards ONE player may have
+    unsigned int maxHandCards{};
+
+
 };

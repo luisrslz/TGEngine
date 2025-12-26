@@ -30,7 +30,7 @@ bool runGameLoop(std::vector<Player> &players, unsigned int playerCount, Game &g
         }
 
         // -> Draw Cards
-        if (players[currentPlayer].getCardCount() != config::MAX_HANDCARDS && game.stackSize() > 0) {
+        if (players[currentPlayer].getCardCount() != game.getMaxHandCards() && game.stackSize() > 0) {
             players[currentPlayer].drawCards();
         }
 
@@ -55,7 +55,7 @@ bool runGameLoop(std::vector<Player> &players, unsigned int playerCount, Game &g
 // Work function for each thread
 void threadWork(unsigned long long iterations, unsigned int playerCount) {
     for (unsigned long long i = 0; i < iterations; ++i) {
-        Game game;
+        Game game(playerCount);
         std::vector<Player> players = createPlayers(playerCount, game);
         if (runGameLoop(players, playerCount, game)) {
             ++wins;
@@ -73,9 +73,6 @@ int main() {
     // Amount of players
     unsigned int playerCount;
     askPlayerCount(playerCount);
-
-    // set according to instructions
-    config::MAX_HANDCARDS = (playerCount >= 3 ? 6 : (playerCount == 2 ? 7 : 8));
 
     // Amount of repetitions
     unsigned long long repetitions;

@@ -28,8 +28,7 @@ constexpr std::string CYAN = "\033[0;36m";
 
 // DO NOT CHANGE ----------------------------------------------------
 constexpr int HIGHEST_CARD = DOWN_START - 1;
-constexpr int LOWEST_CARD = UP_START + 1;
-extern unsigned int MAX_HANDCARDS; // Determines how many handcards ONE player may have
+constexpr int LOWEST_CARD = UP_START + 1; 
 
 // Piles with their according index
 // Could be an enum CLASS for convention... TODO
