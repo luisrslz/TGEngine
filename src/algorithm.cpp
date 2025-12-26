@@ -62,7 +62,7 @@ void Player::predictSpecial(std::pair<unsigned int, unsigned int>& bestMove) {
 
     // 12 -> 22 -> 32 can happen only MAX_HANDCARDS times 
     // i is unused, just for loop count
-    for (size_t i = 0; i < config::MAX_HANDCARDS; ++i) { 
+    for (size_t i = 0; i < m_game.getMaxHandCards(); ++i) { 
 
         bool swapped{false};
 

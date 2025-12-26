@@ -23,7 +23,13 @@ int Game::drawCard() {
     return card;
 }
 
-Game::Game() {
+unsigned int Game::getMaxHandCards() const {
+    return maxHandCards;
+}
+
+// maxHandCards gets defined according to instructions
+Game::Game(const unsigned int& playerCount) 
+          : maxHandCards(playerCount >= 3 ? 6 : (playerCount == 2 ? 7 : 8)) {
     for (unsigned int card = config::LOWEST_CARD; card <= config::HIGHEST_CARD; ++card) {
         stackPile.push_back(card);
     }

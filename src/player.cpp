@@ -1,5 +1,4 @@
 #include "player.hpp"
-#include "config.hpp"
 
 #include <algorithm>
 
@@ -9,7 +8,7 @@ unsigned int Player::getCardCount() const { return handCards.size(); }
 
 void Player::drawCards() {
 
-    while (handCards.size() != config::MAX_HANDCARDS) {
+    while (handCards.size() != m_game.getMaxHandCards()) {
         // Abort drawing if the stack is empty
         if (m_game.stackSize() == 0) {
             break;
