@@ -12,25 +12,25 @@
 //         difference needed for special move
 //         whether the stack is UP or DOWN
 struct Special {
-    Stacks stack;
+    config::Stacks stack;
     int diff;
     bool isUp;
 };
 // ->
 static constexpr std::array<Special, 4> specialRules {{
-    {UP1, -10, true},
-    {UP2, -10, true},
-    {DOWN1, 10, false},
-    {DOWN2, 10, false}
+    {config::UP1, -10, true},
+    {config::UP2, -10, true},
+    {config::DOWN1, 10, false},
+    {config::DOWN2, 10, false}
 }};
 
 // checks if card is within privilege range of top card
 // card: 92, range: 3, top: 89 -> true
 bool inPrivRange(int top, int card, bool isUp) {
     if (isUp) {
-        return top < card && top + PRIVILEGE_RANGE >= card;
+        return top < card && top + config::PRIVILEGE_RANGE >= card;
     } else {
-        return top > card && top - PRIVILEGE_RANGE <= card;
+        return top > card && top - config::PRIVILEGE_RANGE <= card;
     }
 }
 
@@ -58,11 +58,12 @@ bool Player::movePrivilege() {
 
 void Player::predictSpecial(std::pair<unsigned int, unsigned int>& bestMove) {
 
-    bool isUp = (bestMove.second == UP1 || bestMove.second == UP2);
+    bool isUp = (bestMove.second == config::UP1 || bestMove.second == config::UP2);
 
-    for (size_t i = 0; i < MAX_HANDCARDS; ++i) { // 12 -> 22 -> 32 can happen only MAX_HANDCARDS times 
-                                                 // note that this i isn't used, just for how often
-                                                 // we should check
+    // 12 -> 22 -> 32 can happen only MAX_HANDCARDS times 
+    // i is unused, just for loop count
+    for (size_t i = 0; i < config::MAX_HANDCARDS; ++i) { 
+
         bool swapped{false};
 
         for (const auto& card : handCards) {
@@ -117,10 +118,10 @@ std::pair<unsigned int, unsigned int> Player::calculateMove() {
         }
 
         std::array<int, 4> allDiffs{
-            card - currentTopCards.at(UP1),
-            card - currentTopCards.at(UP2),
-            currentTopCards.at(DOWN1) - card,
-            currentTopCards.at(DOWN2) - card
+            card - currentTopCards.at(config::UP1),
+            card - currentTopCards.at(config::UP2),
+            currentTopCards.at(config::DOWN1) - card,
+            currentTopCards.at(config::DOWN2) - card
         };
 
         // Now find the closest difference (ignore negative values)
@@ -160,7 +161,7 @@ std::pair<unsigned int, unsigned int> Player::calculateMove() {
 
 bool Player::bestMove() {
     // Adjust Minplay if necessary
-    unsigned int minPlays = (handCards.size() >= MIN_PLAY ? MIN_PLAY : handCards.size());
+    unsigned int minPlays = (handCards.size() >= config::MIN_PLAY ? config::MIN_PLAY : handCards.size());
 
     // If gameStack is empty players are allowed to only make one move
     if (m_game.stackSize() == 0) {

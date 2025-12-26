@@ -3,6 +3,7 @@
 #include <string>
 
 // Default values are according to normal card game / instructions
+namespace config {
 
 constexpr int DOWN_START = 100; // Determines start value of down counting stack
 constexpr int UP_START = 1;     // Determines start value of up counting stack
@@ -36,3 +37,4 @@ enum Stacks {
     UP1, UP2, DOWN1, DOWN2
 };
 
+} // namespace config

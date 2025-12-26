@@ -24,7 +24,7 @@ int Game::drawCard() {
 }
 
 Game::Game() {
-    for (unsigned int card = LOWEST_CARD; card <= HIGHEST_CARD; ++card) {
+    for (unsigned int card = config::LOWEST_CARD; card <= config::HIGHEST_CARD; ++card) {
         stackPile.push_back(card);
     }
     // Shuffle stackpile
