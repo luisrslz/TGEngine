@@ -4,7 +4,6 @@
 #include <vector>
 
 #include <thread>
-#include <atomic>
 
 #include "config.hpp"
 #include "game.hpp"
@@ -37,6 +36,7 @@ bool runGameLoop(std::vector<Player> &players, unsigned int playerCount, Game &g
 
         // Rotate through players
         currentPlayer = (currentPlayer + 1) % playerCount;
+        ++stats::totalRounds; // one round completed
     }
     
     stats::leftOvers += game.getLeftOver();
