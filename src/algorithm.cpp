@@ -1,12 +1,15 @@
 
 #include "config.hpp"
 #include "player.hpp"
+#include "stats.hpp" // to increase special move count
 
 #include <algorithm>
 #include <array>
 #include <limits>
 #include <map>
 #include <utility>
+
+
 
 // Stores: The Stack, 
 //         difference needed for special move
@@ -112,8 +115,9 @@ std::pair<unsigned int, unsigned int> Player::calculateMove() {
             }
         }
 
-        // Optimize
+        // Optimize and update stats
         if (privilege) {
+            ++stats::specialMove; // we will perform a special move
             break;
         }
 
@@ -183,6 +187,8 @@ bool Player::bestMove() {
             // Player made all necessary moves, so game goes on
             return true;
         }
+
+        stats::usedStack(bestMove.second);
 
         // Automatically play the best move
         removeHandCard(bestMove.first);

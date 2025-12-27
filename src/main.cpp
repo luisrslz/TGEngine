@@ -1,20 +1,14 @@
 #include <chrono>
-#include <iomanip>
 #include <iostream>
 #include <vector>
 
 #include <thread>
-#include <atomic>
 
 #include "config.hpp"
 #include "game.hpp"
 #include "helpers.hpp"
 #include "player.hpp" 
-
-// stats
-std::atomic<unsigned long long> wins {};
-std::atomic<unsigned long long> losses {};
-std::atomic<unsigned long long> leftOvers{};
+#include "stats.hpp"
 
 // This function simulates one game
 bool runGameLoop(std::vector<Player> &players, unsigned int playerCount, Game &game) {
@@ -41,9 +35,10 @@ bool runGameLoop(std::vector<Player> &players, unsigned int playerCount, Game &g
 
         // Rotate through players
         currentPlayer = (currentPlayer + 1) % playerCount;
+        ++stats::totalRounds; // one round completed
     }
     
-    leftOvers += game.getLeftOver();
+    stats::handleLeftOver(game.getLeftOver());
 
     if (game.getLeftOver() == 0) {
         return true; // Won
@@ -58,9 +53,9 @@ void threadWork(unsigned long long iterations, unsigned int playerCount) {
         Game game(playerCount);
         std::vector<Player> players = createPlayers(playerCount, game);
         if (runGameLoop(players, playerCount, game)) {
-            ++wins;
+            ++stats::wins;
         } else {
-            ++losses;
+            ++stats::losses;
         }
     }
 }
@@ -105,8 +100,8 @@ int main() {
 
     // Print 
     // this thread could also work but whatever...
-    while (losses + wins < repetitions) {
-        std::cout << "\r" << losses + wins;
+    while (stats::losses + stats::wins < repetitions) {
+        std::cout << "\r" << stats::losses + stats::wins;
         std::this_thread::sleep_for(std::chrono::milliseconds(10));
     }
 
@@ -118,13 +113,7 @@ int main() {
     // --------------- END ----------
 
     // Final output
-    std::cout << config::CYAN << "\n\nFinished.\n"
-              << config::GREEN << "Wins: " << wins
-              << config::RED << "\nLosses: " << losses << config::RESET 
-              << config::BLUE << "\nWin-Rate: " << std::fixed << std::setprecision(2)
-              << (static_cast<double>(wins) / (wins + losses) * 100.0) << "%\n" 
-              << "Average leftover cards: " << static_cast<double>(leftOvers) / repetitions
-              << config::RESET;
+    stats::print(repetitions, playerCount);
 
     return 0;
 }
