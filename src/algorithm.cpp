@@ -3,13 +3,9 @@
 #include "player.hpp"
 #include "stats.hpp" // to increase special move count
 
-#include <algorithm>
 #include <array>
 #include <limits>
-#include <map>
 #include <utility>
-
-
 
 // Stores: The Stack, 
 //         difference needed for special move
@@ -97,14 +93,12 @@ std::pair<unsigned int, unsigned int> Player::calculateMove() {
     // First: Card, Second: Stack
     std::pair<unsigned int, unsigned int> bestMove {};
 
-    // Safes for each card <int, ...> the smallest diff and according stack >>->
-    // smallestDiffs.at(32) = {4, UP2}
-    std::map<int, std::pair<int, int>> smallestDiff;
+    // Smallest positive difference found of all handCards
+    unsigned int smallestDiff = std::numeric_limits<int>::max();
 
     bool privilege{false}; // -> store if our move is of type "special"
 
-    // Iterate through every handcard and set
-    // smallestDiff for each
+    // Iterate through every handcard and check privilege / closeness
     for (auto card : handCards) {
 
         // Special Rule possible ?
@@ -115,11 +109,14 @@ std::pair<unsigned int, unsigned int> Player::calculateMove() {
             }
         }
 
-        // Optimize and update stats
+        // Privilege has priority, we will perform that regardless
+        // of closeness to top cards
         if (privilege) {
             ++stats::specialMove; // we will perform a special move
             break;
         }
+
+        // No privilege -> find closest card to any top card
 
         std::array<int, 4> allDiffs{
             card - currentTopCards.at(config::UP1),
@@ -128,8 +125,7 @@ std::pair<unsigned int, unsigned int> Player::calculateMove() {
             currentTopCards.at(config::DOWN2) - card
         };
 
-        // Now find the closest difference (ignore negative values)
-        int closest = std::numeric_limits<int>::max();
+        // Update smallestDiff and bestMove if we found a closer card/pile combination
         for (size_t pile = 0; pile < allDiffs.size(); ++pile) {
             const int diff = allDiffs.at(pile);
 
@@ -138,21 +134,12 @@ std::pair<unsigned int, unsigned int> Player::calculateMove() {
                 continue;
             }
 
-            if (diff < closest) {
-                // Overwrite the closest until it finally is the closest obv.-
-                smallestDiff[card] = {diff, pile};
-                closest = diff;
+            // Found a new best move
+            if (diff < smallestDiff) {
+                smallestDiff = diff;
+                bestMove = {card, pile};
             }
         }
-    }
-
-    // Now iterate through the map and find the overall smallest Difference
-    if (!privilege) {
-        auto temp = std::min_element(
-            smallestDiff.begin(), smallestDiff.end(),
-            [](const auto &a, const auto &b) { return a.second.first < b.second.first; });
-
-        bestMove = {temp->first, temp->second.second};
     }
 
     // Check if we can make the best move even better by predicting
