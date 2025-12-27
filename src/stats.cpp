@@ -33,9 +33,21 @@ std::string formatNumber(unsigned long long number) {
     return numStr;
 }
 
-void printRow(const std::string& label, const std::string& value) {
-    std::cout << "║  " << std::left << std:: setw(18) << label
-              << std::right << std::setw(22) << value << "  ║\n";
+std::string formatDouble(double value, int precision = 2) {
+    std::ostringstream out;
+    out << std::fixed << std::setprecision(precision) << value;
+    return out.str();
+}
+
+void printRow(const std::string& label, const std::string& value, const     std::string& color = config::RESET) {
+    int totalWidth = 42;
+    // -4 for 2x "║ " and "  ║"
+    int padding = totalWidth - 4 - label.length() - value.length();
+
+
+std::cout << "║  " << color << label
+              << std::string(padding, ' ') // dynamic padding
+<< value << config::RESET << "  ║\n";
 }
 
 void printSeparator() {
