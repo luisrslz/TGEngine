@@ -26,7 +26,7 @@ inline std::atomic<unsigned long long> stackDOWN2{}; // times stack DOWN
 void print(unsigned long long repetitions, int playerCount);
 
 // increases stackUP1, ... accordingly
-void usedStack(unsigned stack);
+void usedStack(unsigned int stack);
 
 // returns the most used stack as a string
 std::string mostUsedStack();

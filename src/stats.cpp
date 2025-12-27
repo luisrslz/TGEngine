@@ -26,7 +26,6 @@ void stats::usedStack(unsigned int stack) {
 
 // function to format numbers with commas
 // 302492 -> 302,492
-// source: copied from internet
 std::string formatNumber(unsigned long long number) {
     std::string numStr = std::to_string(number);
     int insertPosition = static_cast<int>(numStr.length()) - 3;
