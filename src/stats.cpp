@@ -54,6 +54,30 @@ void stats::handleLeftOver(const unsigned int& leftOver) {
     }
 }
 
+std::string stats::mostUsedStack() {
+    unsigned long long maxUses = 0;
+    std::string mostUsed;
+
+    if (stackUP1 > maxUses) {
+        maxUses = stackUP1;
+        mostUsed = "UP1";
+    }
+    if (stackUP2 > maxUses) {
+        maxUses = stackUP2;
+        mostUsed = "UP2";
+    }
+    if (stackDOWN1 > maxUses) {
+        maxUses = stackDOWN1;
+        mostUsed = "DOWN1";
+    }
+    if (stackDOWN2 > maxUses) {
+        maxUses = stackDOWN2;
+        mostUsed = "DOWN2";
+    }
+
+    return mostUsed + " (" + formatNumber(maxUses) + " uses)";
+}
+
 void stats::print(unsigned long long repetitions, int playerCount) {
     double winRate = static_cast<double>(wins) / (wins + losses) * 100.0;
     double lossRate = static_cast<double>(losses) / (wins + losses) * 100.0;

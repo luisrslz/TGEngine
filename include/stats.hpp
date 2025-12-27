@@ -28,6 +28,9 @@ void print(unsigned long long repetitions, int playerCount);
 // increases stackUP1, ... accordingly
 void usedStack(unsigned stack);
 
+// returns the most used stack as a string
+std::string mostUsedStack();
+
 // to change leftOver stats
 void handleLeftOver(const unsigned int& leftOver);
 
