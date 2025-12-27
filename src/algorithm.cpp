@@ -3,13 +3,9 @@
 #include "player.hpp"
 #include "stats.hpp" // to increase special move count
 
-#include <algorithm>
 #include <array>
 #include <limits>
-#include <map>
 #include <utility>
-
-
 
 // Stores: The Stack, 
 //         difference needed for special move
@@ -97,14 +93,12 @@ std::pair<unsigned int, unsigned int> Player::calculateMove() {
     // First: Card, Second: Stack
     std::pair<unsigned int, unsigned int> bestMove {};
 
-    // Safes for each card <int, ...> the smallest diff and according stack >>->
-    // smallestDiffs.at(32) = {4, UP2}
+    // Smallest positive difference found of all handCards
     unsigned int smallestDiff = std::numeric_limits<int>::max();
 
     bool privilege{false}; // -> store if our move is of type "special"
 
-    // Iterate through every handcard and set
-    // smallestDiff for each
+    // Iterate through every handcard and check privilege / closeness
     for (auto card : handCards) {
 
         // Special Rule possible ?
@@ -115,11 +109,14 @@ std::pair<unsigned int, unsigned int> Player::calculateMove() {
             }
         }
 
-        // Optimize and update stats
+        // Privilege has priority, we will perform that regardless
+        // of closeness to top cards
         if (privilege) {
             ++stats::specialMove; // we will perform a special move
             break;
         }
+
+        // No privilege -> find closest card to any top card
 
         std::array<int, 4> allDiffs{
             card - currentTopCards.at(config::UP1),
@@ -128,7 +125,7 @@ std::pair<unsigned int, unsigned int> Player::calculateMove() {
             currentTopCards.at(config::DOWN2) - card
         };
 
-        // Find card with smallest positive difference
+        // Update smallestDiff and bestMove if we found a closer card/pile combination
         for (size_t pile = 0; pile < allDiffs.size(); ++pile) {
             const int diff = allDiffs.at(pile);
 
@@ -137,8 +134,8 @@ std::pair<unsigned int, unsigned int> Player::calculateMove() {
                 continue;
             }
 
+            // Found a new best move
             if (diff < smallestDiff) {
-                // Overwrite the closest until it finally is the closest obv.-
                 smallestDiff = diff;
                 bestMove = {card, pile};
             }
