@@ -20,7 +20,7 @@ inline std::atomic<unsigned long long> specialMove{}; // total games played
 inline std::atomic<unsigned long long> stackUP1{}; // times stack UP1 was used
 inline std::atomic<unsigned long long> stackUP2{}; // times stack UP2 was used
 inline std::atomic<unsigned long long> stackDOWN1{}; // times stack DOWN1 was used
-inline std::atomic<unsigned long long> stackDOWN2{}; // times stack DOWN
+inline std::atomic<unsigned long long> stackDOWN2{}; // times stack DOWN2 was used
 
 // prints the stats after all games are finished
 void print(unsigned long long repetitions, int playerCount);
