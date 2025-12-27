@@ -10,6 +10,8 @@
 // Stores: The Stack, 
 //         difference needed for special move
 //         whether the stack is UP or DOWN
+namespace algm {
+
 struct Special {
     config::Stacks stack;
     int diff;
@@ -22,6 +24,8 @@ constexpr std::array<Special, 4> specialRules {{
     {config::DOWN1, 10, false},
     {config::DOWN2, 10, false}
 }};
+
+} // namespace algm
 
 // checks if card is within privilege range of top card
 // card: 92, range: 3, top: 89 -> true
@@ -39,7 +43,7 @@ bool Player::movePrivilege() {
 
     for (auto card : handCards) {
 
-        for (const auto& r : specialRules) {
+        for (const auto& r : algm::specialRules) {
 
             const int top = currentTopCards.at(r.stack);
             // SPECIAL RULE ? 
@@ -102,7 +106,7 @@ std::pair<unsigned int, unsigned int> Player::calculateMove() {
     for (auto card : handCards) {
 
         // Special Rule possible ?
-        for (const auto& r : specialRules) {
+        for (const auto& r : algm::specialRules) {
             if (card == currentTopCards.at(r.stack) + r.diff) {
                 bestMove = {card, r.stack};
                 privilege = true;
