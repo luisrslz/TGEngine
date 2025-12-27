@@ -1,5 +1,4 @@
 #include <chrono>
-#include <iomanip>
 #include <iostream>
 #include <vector>
 
@@ -114,13 +113,7 @@ int main() {
     // --------------- END ----------
 
     // Final output
-    std::cout << config::CYAN << "\n\nFinished.\n"
-              << config::GREEN << "Wins: " << stats::wins
-              << config::RED << "\nLosses: " << stats::losses << config::RESET 
-              << config::BLUE << "\nWin-Rate: " << std::fixed << std::setprecision(2)
-              << (static_cast<double>(stats::wins) / (stats::wins + stats::losses) * 100.0) << "%\n" 
-              << "Average leftover cards: " << static_cast<double>(stats::leftOvers) / repetitions
-              << config::RESET;
+    stats::print(repetitions, playerCount);
 
     return 0;
 }

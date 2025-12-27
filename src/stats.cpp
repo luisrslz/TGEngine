@@ -1,6 +1,10 @@
 #include "stats.hpp"
 #include "config.hpp"
 
+#include <string>
+#include <iostream>
+#include <iomanip>
+
 void stats::usedStack(unsigned int stack) {
     switch (stack) {
         case config::UP1:
@@ -39,15 +43,15 @@ std::string formatDouble(double value, int precision = 2) {
     return out.str();
 }
 
-void printRow(const std::string& label, const std::string& value, const     std::string& color = config::RESET) {
+void printRow(const std::string& label, const std::string& value, const std::string& color = config::RESET) {
     int totalWidth = 42;
     // -4 for 2x "║ " and "  ║"
     int padding = totalWidth - 4 - label.length() - value.length();
 
 
-std::cout << "║  " << color << label
+    std::cout << "║  " << color << label 
               << std::string(padding, ' ') // dynamic padding
-<< value << config::RESET << "  ║\n";
+              << value << config::RESET << "  ║\n";
 }
 
 void printSeparator() {
@@ -95,4 +99,28 @@ void stats::print(unsigned long long repetitions, int playerCount) {
     double lossRate = static_cast<double>(losses) / (wins + losses) * 100.0;
     double avgLeftOver = static_cast<double>(leftOvers) / (wins + losses);
 
+    std::string stack = mostUsedStack();
+
+    std::cout << "\n\n"  << std::fixed << std::setprecision(2);
+    std::cout << "╔══════════════════════════════════════════╗\n";
+    std::cout << "║" << config::BLUE << "           SIMULATION RESULTS             " << config::RESET << "║\n";
+    printSeparator();
+    printRow("Players: ", std::to_string(playerCount), config::BLUE);
+    printRow("Total Games:", formatNumber(repetitions), config::BLUE);
+    printSeparator();
+    printRow("Wins:", formatNumber(wins), config::GREEN);
+    printRow("Losses:", formatNumber(losses), config::RED);
+    printRow("Win Rate:", formatDouble(winRate) + " %", config::GREEN);
+    printRow("Loss Rate:", formatDouble(lossRate) + " %", config::RED);
+    printSeparator();
+    printRow("Total Rounds:", formatNumber(totalRounds), config::CYAN);
+    printRow("Avg Rounds/Game:", formatDouble(static_cast<double>(totalRounds) / repetitions), config::CYAN);
+    printRow("Avg Leftover Cards/Game:", formatDouble(avgLeftOver), config::CYAN);
+    printRow("Best Lost Game (fewest):", formatNumber(minLeftOver), config::YELLOW);
+    printRow("Worst Lost Game (most):", formatNumber(maxLeftOver), config::RED);
+    printSeparator();
+    printRow("Most Used Stack:", stack, config::BLUE);
+    printRow("Average special moves/Game:", formatDouble(static_cast<double>(specialMove) / repetitions), config::BLUE);
+    std::cout << "╚══════════════════════════════════════════╝\n";
+    
 }
