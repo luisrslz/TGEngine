@@ -45,10 +45,13 @@ std::string formatDouble(double value, int precision = 2) {
 }
 
 void printRow(const std::string& label, const std::string& value, const std::string& color = config::RESET) {
-    int totalWidth = 42;
+    int totalWidth = 46;
     // -4 for 2x "║ " and "  ║"
     int padding = totalWidth - 4 - label.length() - value.length();
 
+    if (padding < 0) {
+        padding = 0; // prevent negative padding
+    }
 
     std::cout << "║  " << color << label 
               << std::string(padding, ' ') // dynamic padding
@@ -56,7 +59,7 @@ void printRow(const std::string& label, const std::string& value, const std::str
 }
 
 void printSeparator() {
-        std::cout << "╠══════════════════════════════════════════╣\n";
+        std::cout << "╠══════════════════════════════════════════════╣\n";
 }
 
 void stats::handleLeftOver(const unsigned int& leftOver) {
@@ -123,8 +126,8 @@ void stats::print(unsigned long long repetitions, int playerCount) {
     std::string stack = mostUsedStack();
 
     std::cout << "\n\n"  << std::fixed << std::setprecision(2);
-    std::cout << "╔══════════════════════════════════════════╗\n";
-    std::cout << "║" << config::BLUE << "           SIMULATION RESULTS             " << config::RESET << "║\n";
+    std::cout << "╔══════════════════════════════════════════════╗\n";
+    std::cout << "║" << config::BLUE << "             SIMULATION RESULTS               " << config::RESET << "║\n";
     printSeparator();
     printRow("Players: ", std::to_string(playerCount), config::BLUE);
     printRow("Total Games:", formatNumber(repetitions), config::BLUE);
@@ -142,6 +145,6 @@ void stats::print(unsigned long long repetitions, int playerCount) {
     printSeparator();
     printRow("Most Used Stack:", stack, config::BLUE);
     printRow("Average special moves/Game:", formatDouble(static_cast<double>(specialMove) / repetitions), config::BLUE);
-    std::cout << "╚══════════════════════════════════════════╝\n";
+    std::cout << "╚══════════════════════════════════════════════╝\n";
     
 }
