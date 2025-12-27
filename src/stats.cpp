@@ -1,6 +1,7 @@
 #include "stats.hpp"
 #include "config.hpp"
 
+#include <atomic>
 #include <string>
 #include <iostream>
 #include <iomanip>
@@ -60,12 +61,28 @@ void printSeparator() {
 void stats::handleLeftOver(const unsigned int& leftOver) {
     leftOvers += leftOver;
 
-    if (leftOver < minLeftOver && leftOver != 0) {
-        minLeftOver = leftOver;
+    // update minLeftOver thread-safely
+    if (leftOver != 0) {
+        unsigned long long currentMin = minLeftOver.load(std::memory_order_relaxed);
+        while (leftOver < currentMin) {
+            if (minLeftOver.compare_exchange_weak(
+                    currentMin, leftOver, 
+                    std::memory_order_relaxed, 
+                    std::memory_order_relaxed)) {
+                break;
+            }
+        }
     }
     
-    if (leftOver > maxLeftOver) {
-        maxLeftOver = leftOver;
+    // update maxLeftOver thread-safely
+    unsigned long long currentMax = maxLeftOver.load(std::memory_order_relaxed);
+    while (leftOver > currentMax) {
+        if (maxLeftOver.compare_exchange_weak(
+                currentMax, leftOver, 
+                std::memory_order_relaxed, 
+                std::memory_order_relaxed)) {
+            break;
+        }
     }
 }
 
