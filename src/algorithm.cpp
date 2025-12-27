@@ -16,7 +16,7 @@ struct Special {
     bool isUp;
 };
 // ->
-static constexpr std::array<Special, 4> specialRules {{
+constexpr std::array<Special, 4> specialRules {{
     {config::UP1, -10, true},
     {config::UP2, -10, true},
     {config::DOWN1, 10, false},
