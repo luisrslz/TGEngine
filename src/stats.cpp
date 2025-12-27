@@ -116,6 +116,10 @@ void stats::print(unsigned long long repetitions, int playerCount) {
     double lossRate = static_cast<double>(losses) / (wins + losses) * 100.0;
     double avgLeftOver = static_cast<double>(leftOvers) / (wins + losses);
 
+    if (minLeftOver == std::numeric_limits<unsigned long long>::max()) {
+        minLeftOver = 0; // prevent print of max value if no losses occurred
+    }
+
     std::string stack = mostUsedStack();
 
     std::cout << "\n\n"  << std::fixed << std::setprecision(2);
