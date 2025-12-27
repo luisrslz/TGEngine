@@ -99,7 +99,7 @@ std::pair<unsigned int, unsigned int> Player::calculateMove() {
 
     // Safes for each card <int, ...> the smallest diff and according stack >>->
     // smallestDiffs.at(32) = {4, UP2}
-    std::map<int, std::pair<int, int>> smallestDiff;
+    unsigned int smallestDiff = std::numeric_limits<int>::max();
 
     bool privilege{false}; // -> store if our move is of type "special"
 
@@ -128,8 +128,7 @@ std::pair<unsigned int, unsigned int> Player::calculateMove() {
             currentTopCards.at(config::DOWN2) - card
         };
 
-        // Now find the closest difference (ignore negative values)
-        int closest = std::numeric_limits<int>::max();
+        // Find card with smallest positive difference
         for (size_t pile = 0; pile < allDiffs.size(); ++pile) {
             const int diff = allDiffs.at(pile);
 
@@ -138,21 +137,12 @@ std::pair<unsigned int, unsigned int> Player::calculateMove() {
                 continue;
             }
 
-            if (diff < closest) {
+            if (diff < smallestDiff) {
                 // Overwrite the closest until it finally is the closest obv.-
-                smallestDiff[card] = {diff, pile};
-                closest = diff;
+                smallestDiff = diff;
+                bestMove = {card, pile};
             }
         }
-    }
-
-    // Now iterate through the map and find the overall smallest Difference
-    if (!privilege) {
-        auto temp = std::min_element(
-            smallestDiff.begin(), smallestDiff.end(),
-            [](const auto &a, const auto &b) { return a.second.first < b.second.first; });
-
-        bestMove = {temp->first, temp->second.second};
     }
 
     // Check if we can make the best move even better by predicting
