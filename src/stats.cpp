@@ -5,6 +5,7 @@
 #include <string>
 #include <iostream>
 #include <iomanip>
+#include <sstream> // needed for macOS
 
 void stats::usedStack(unsigned int stack) {
     switch (stack) {
