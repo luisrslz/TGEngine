@@ -154,7 +154,7 @@ std::pair<unsigned int, unsigned int> Player::calculateMove() {
     return bestMove;
 }
 
-bool Player::bestMove() {
+bool Player::playBestMoves() {
     // Adjust Minplay if necessary
     unsigned int minPlays = (handCards.size() >= config::MIN_PLAY ? config::MIN_PLAY : handCards.size());
 

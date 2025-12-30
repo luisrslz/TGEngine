@@ -17,7 +17,7 @@ bool runGameLoop(std::vector<Player> &players, unsigned int playerCount, Game &g
     while (true) {
         // Play the best moves
         if (players[currentPlayer].getCardCount() > 0) {
-            if (!players[currentPlayer].bestMove()) {
+            if (!players[currentPlayer].playBestMoves()) {
                 // -> Game OVER
                 break;
             }

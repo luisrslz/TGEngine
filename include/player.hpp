@@ -31,7 +31,7 @@ class Player {
     std::pair<unsigned int, unsigned int> calculateMove(); 
 
     // Interaction with the game loop and final performance of the move
-    bool bestMove(); // -> prints the best possible move
+    bool playBestMoves(); // -> prints the best possible move
 
     /* --------------------  */
 
