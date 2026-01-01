@@ -1,6 +1,6 @@
 # check that code compiles and runs on linux, macOS, windows
 
-name: build and run
+name: build
 
 on:
   pull_request:
@@ -39,10 +39,8 @@ jobs:
 
       # ---------- Configure ----------
       - name: Configure
-        run: |
-          cmake -S . -B build -DCMAKE_BUILD_TYPE=Release
+        run: cmake -S . -B build -DCMAKE_BUILD_TYPE=Release
 
       # ---------- Build ----------
       - name: Build
-        run: |
-          cmake --build build --config Release
+        run: cmake --build build --config Release
