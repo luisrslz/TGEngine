@@ -19,10 +19,10 @@ struct Special {
 };
 // ->
 constexpr std::array<Special, 4> specialRules {{
-    {config::UP1, -10, true},
-    {config::UP2, -10, true},
-    {config::DOWN1, 10, false},
-    {config::DOWN2, 10, false}
+    {config::UP1, - config::SPECIAL_RULE_DIFF, true},
+    {config::UP2, - config::SPECIAL_RULE_DIFF, true},
+    {config::DOWN1, config::SPECIAL_RULE_DIFF, false},
+    {config::DOWN2, config::SPECIAL_RULE_DIFF, false}
 }};
 
 } // namespace algm
@@ -75,8 +75,8 @@ void Player::predictSpecial(std::pair<unsigned int, unsigned int>& bestMove) {
                 continue;
             }
            
-            if ((bestMove.first + 10 == card && isUp) ||
-                (bestMove.first - 10 == card && !isUp)) {
+            if ((bestMove.first + config::SPECIAL_RULE_DIFF == card && isUp) ||
+                (bestMove.first - config::SPECIAL_RULE_DIFF == card && !isUp)) {
                 bestMove.first = card;
                 swapped = true;
                 break;

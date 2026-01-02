@@ -15,6 +15,9 @@ constexpr int PRIVILEGE_RANGE = 3; // If the player has a card within a range of
                                    // should he perform a extra move?
                                    // Tests showed that 3 leads to highest win-percentage
 
+constexpr int SPECIAL_RULE_DIFF = 10; // Difference for special rule to apply
+                                      // -xy for up piles, +xy for down piles
+
 // COLORS
 constexpr std::string RED = "\033[0;31m";
 constexpr std::string BLUE = "\033[0;34m";
