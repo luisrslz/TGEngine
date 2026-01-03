@@ -93,3 +93,20 @@ TEST(GameTest, DecrementLeftOverReducesCount) {
     
     EXPECT_EQ(game.getLeftOver(), initialLeftOver - 1);
 }
+
+// ============== Shuffle Test ==============
+
+TEST(GameTest, DifferentSeedsProduceDifferentShuffles) {
+    Game game1 {1};
+    Game game2 {1};
+    
+    // At least one card should be different in first 10
+    bool foundDifference = false;
+    for (int i = 0; i < 10; ++i) {
+        if (game1.drawCard() != game2.drawCard()) {
+            foundDifference = true;
+            break;
+        }
+    }
+    EXPECT_TRUE(foundDifference);
+}
