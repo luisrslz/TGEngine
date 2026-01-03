@@ -38,6 +38,18 @@ class Player {
     // removes a card from handCards
     void removeHandCard(int card);
 
+    // ========= FOR TESTING PURPOSES =========
+    // sets handCards to a predefined vector (for testing)
+    void setHandCards(const std::vector<int>& cards) {
+      handCards = cards;
+    }
+
+    // getter for handCards (for testing)
+    std::vector<int> getHandCards() const {
+      return handCards;
+    }
+    // =======================================
+
   private:
     // -> each player has a reference to his game to interact with it
     Game &m_game; 
@@ -46,3 +58,6 @@ class Player {
     std::vector<int> handCards;
 
 };
+
+// Free function declaration for testability (defined in algorithm.cpp)
+bool inPrivRange(int top, int card, bool isUp);

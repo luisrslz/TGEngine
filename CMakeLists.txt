@@ -34,3 +34,11 @@ target_compile_options(TGEngine PRIVATE
     $<$<CXX_COMPILER_ID:CLANG>:-O3>
     $<$<CXX_COMPILER_ID:MSVC>:/O2>
 )
+
+# ========== Testing ==========
+option(BUILD_TESTS "Build the tests" OFF)
+
+if(BUILD_TESTS)
+    add_subdirectory(tests)
+endif()
+# ==================================
