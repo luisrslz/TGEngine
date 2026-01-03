@@ -43,6 +43,11 @@ class Player {
     void setHandCards(const std::vector<int>& cards) {
       handCards = cards;
     }
+
+    // getter for handCards (for testing)
+    std::vector<int> getHandCards() const {
+      return handCards;
+    }
     // =======================================
 
   private:
