@@ -46,3 +46,6 @@ class Player {
     std::vector<int> handCards;
 
 };
+
+// Free function declaration for testability (defined in algorithm.cpp)
+bool inPrivRange(int top, int card, bool isUp);
