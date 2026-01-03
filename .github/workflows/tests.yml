@@ -1,4 +1,4 @@
-name: C++ Logic Tests
+name: GTest/Logic Tests
 
 on:  
   pull_request: 
