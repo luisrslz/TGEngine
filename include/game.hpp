@@ -32,6 +32,13 @@ class Game {
     // getter for maxHandCards
     unsigned int getMaxHandCards() const; 
 
+    // ======== FOR TESTING PURPOSES =========
+    // sets topCards to a predefined vector (for testing)
+    void setTopCards(const std::array<int, 4>& tops) { 
+      topCards = tops; 
+    }
+    // ======================================
+
   private:
     // stack where players draw from
     std::vector<int> stackPile{};
