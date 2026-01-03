@@ -27,3 +27,16 @@ TEST(GameTest, ConstructorSetsMaxHandCardsFor5Players) {
     Game game(5);
     EXPECT_EQ(game. getMaxHandCards(), 6);
 }
+
+// ============== Stack Size Tests ==============
+
+TEST(GameTest, InitialStackSizeIs98) {
+    // Cards 2-99 = 98 cards
+    Game game(1);
+    EXPECT_EQ(game.stackSize(), 98);
+}
+
+TEST(GameTest, InitialLeftOverIs98) {
+    Game game(1);
+    EXPECT_EQ(game.getLeftOver(), 98);
+}
