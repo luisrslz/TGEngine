@@ -158,7 +158,7 @@ TEST(BestMoveTest, UPStack1) {
 
     // Player should play 27 on UP1 (diff 1)
     player.setHandCards({20, 23, 27});
-    game.setTopCards({26, 37, 30, 34});
+    game.setTopCards({26, 38, 30, 34});
 
     auto move = player.calculateMove();
 
@@ -172,7 +172,7 @@ TEST(BestMoveTest, UPStack2) {
 
     // Player should play 27 on UP2 (diff 1)
     player.setHandCards({20, 23, 27});
-    game.setTopCards({37, 26, 30, 34});
+    game.setTopCards({38, 26, 30, 34});
 
     auto move = player.calculateMove();
 
@@ -185,7 +185,7 @@ TEST(BestMoveTest, DOWNStack1) {
     Player player {game};
 
     // Player should play 29 on DOWN1 (diff 1)
-    player.setHandCards({40, 32, 24, 29});
+    player.setHandCards({41, 32, 24, 29});
     game.setTopCards({37, 26, 30, 34});
 
     auto move = player.calculateMove();
@@ -199,7 +199,7 @@ TEST(BestMoveTest, DOWNStack2) {
     Player player {game};
 
     // Player should play 29 on DOWN2 (diff 1)
-    player.setHandCards({40, 32, 24, 29});
+    player.setHandCards({42, 32, 24, 29});
     game.setTopCards({37, 26, 34, 30});
 
     auto move = player.calculateMove();
