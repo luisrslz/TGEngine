@@ -82,3 +82,14 @@ TEST(GameTest, DrawCardReturnsValidCard) {
     EXPECT_GE(card, config::LOWEST_CARD);  // >= 2
     EXPECT_LE(card, config::HIGHEST_CARD); // <= 99
 }
+
+// ============== Decrement LeftOver Tests ==============
+
+TEST(GameTest, DecrementLeftOverReducesCount) {
+    Game game(1);
+    int initialLeftOver = game.getLeftOver();
+    
+    game.decrementLeftOver();
+    
+    EXPECT_EQ(game.getLeftOver(), initialLeftOver - 1);
+}
