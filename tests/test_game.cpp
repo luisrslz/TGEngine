@@ -63,3 +63,22 @@ TEST(GameTest, SetTopCardUpdatesCorrectly) {
     EXPECT_EQ(topCards[config::UP1], 42);
     EXPECT_EQ(topCards[config::UP2], config::UP_START); // unchanged
 }
+
+// ============== Draw Card Tests ==============
+
+TEST(GameTest, DrawCardReducesStackSize) {
+    Game game(1);
+    int initialSize = game.stackSize();
+    
+    game.drawCard();
+    
+    EXPECT_EQ(game.stackSize(), initialSize - 1);
+}
+
+TEST(GameTest, DrawCardReturnsValidCard) {
+    Game game(1);
+    int card = game.drawCard();
+    
+    EXPECT_GE(card, config::LOWEST_CARD);  // >= 2
+    EXPECT_LE(card, config::HIGHEST_CARD); // <= 99
+}
