@@ -149,3 +149,62 @@ TEST(SpecialRuleTest, PredictedSpecialSwap) {
     EXPECT_EQ(move.first, 27);
     EXPECT_EQ(move.second, config::DOWN1);
 }
+
+// ============== Simple Move Tests ==============
+
+TEST(BestMoveTest, UPStack1) {
+    Game game {1};
+    Player player {game};
+
+    // Player should play 27 on UP1 (diff 1)
+    player.setHandCards({20, 23, 27});
+    game.setTopCards({26, 37, 30, 34});
+
+    auto move = player.calculateMove();
+
+    EXPECT_EQ(move.first, 27);
+    EXPECT_EQ(move.second, config::UP1);
+}
+
+TEST(BestMoveTest, UPStack2) {
+    Game game {1};
+    Player player {game};
+
+    // Player should play 27 on UP2 (diff 1)
+    player.setHandCards({20, 23, 27});
+    game.setTopCards({37, 26, 30, 34});
+
+    auto move = player.calculateMove();
+
+    EXPECT_EQ(move.first, 27);
+    EXPECT_EQ(move.second, config::UP2);
+}
+
+TEST(BestMoveTest, DOWNStack1) {
+    Game game {1};
+    Player player {game};
+
+    // Player should play 29 on DOWN1 (diff 1)
+    player.setHandCards({40, 32, 24, 29});
+    game.setTopCards({37, 26, 30, 34});
+
+    auto move = player.calculateMove();
+
+    EXPECT_EQ(move.first, 29);
+    EXPECT_EQ(move.second, config::DOWN1);
+}
+
+TEST(BestMoveTest, DOWNStack2) {
+    Game game {1};
+    Player player {game};
+
+    // Player should play 29 on DOWN2 (diff 1)
+    player.setHandCards({40, 32, 24, 29});
+    game.setTopCards({37, 26, 34, 30});
+
+    auto move = player.calculateMove();
+
+    EXPECT_EQ(move.first, 29);
+    EXPECT_EQ(move.second, config::DOWN2);
+}
+
