@@ -115,5 +115,12 @@ int main() {
     // Final output
     stats::print(repetitions, playerCount);
 
+    // prevent windows from closing terminal immediately
+#ifdef _WIN32
+    std::cout << "\nPress Enter to exit...";
+    std:: cin.ignore(std::numeric_limits<std:: streamsize>::max(), '\n');
+    std::cin.get();
+#endif
+
     return 0;
 }
