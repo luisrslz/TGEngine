@@ -59,8 +59,13 @@ Download the suitable executable for your OS in [Releases](https://github.com/lu
 #### Linux / macOS
 ###### Open your `Downloads` folder in any terminal and run:
 ```
+# Make sure the file is executable
+chmod +x ./TGEngine-<OS>
+
+# Execute
 ./TGEngine
 ```
+_Note: macOS-Gatekeeper might block the execution for security reasons. In this case run `xattr -d com.apple.quarantine ./TGEngine` before executing. Also see [Verify Integrity](https://github.com/luisrslz/TGEngine?tab=readme-ov-file#verify-integrity)._
 #### Windows
 - In File Explorer, double-click `TGEngine-Windows.exe`
 - Run from Console:
