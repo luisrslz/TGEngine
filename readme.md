@@ -53,24 +53,36 @@ It is designed for speed and clarity, using **multithreading** to distribute sim
 
 ---
 
-## Build & Run
+## Run
+Download the suitable executable for your OS in [Releases](https://github.com/luisrslz/TGEngine/releases).
 
-### Requirements
-- C++20 or newer  
-- g++, clang++, or MSVC  
-- CMake
-
-#### Linux / MacOS
+#### Linux / macOS
+###### Open your `Downloads` folder in any terminal and run:
 ```
-./build.sh
+./TGEngine
 ```
 #### Windows
+- In File Explorer, double-click `TGEngine-Windows.exe`
+- Run from Console:
 ```
-cmake -S . -B build -DCMAKE_BUILD_TYPE=Release 
-cmake --build build --config Release
-.\Release\TGEngine.exe
+# PowerShell
+.\TGEngine-Windows.exe
+
+# CMD
+TGEngine-Windows.exe
 ```
-_Windows: If you have any errors or your program doesn't run as expected, opening the project folder in your IDE with necessary extensions installed and running it from there should always work._
+
+_Note: Windows SmartScreen may show a warning because this executable is not code-signed or is not yet widely recognized. You can verify the integrity of the download by checking its SHA-256 hash against the value provided in the release file `SHA256SUMS.txt`, or by building the executable yourself from the source code in this repository._
+
+### Verify integrity
+```
+# Linux / macOS
+sha256sum -c SHA256SUMS.txt
+
+# Windows (PowerShell)
+Get-FileHash .\TGEngine-Windows.exe -Algorithm SHA256
+# Compare the displayed hash with the entry in SHA256SUMS.txt
+```
 
 ---
 
