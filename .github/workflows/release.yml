@@ -93,6 +93,15 @@ jobs:
         chmod +x release/TGEngine-Linux
         cp artifacts/TGEngine-macOS/TGEngine release/TGEngine-macOS
         chmod +x release/TGEngine-macOS
+
+    - name: Create SHA256SUMS.txt
+      run: |
+        set -e
+        cd release
+        sha256sum TGEngine-Windows.exe TGEngine-Linux TGEngine-macOS > SHA256SUMS.txt
+        echo "---- SHA256SUMS.txt ----"
+        cat SHA256SUMS.txt
+        echo "------------------------"
     
     - name: Create GitHub Release
       uses: softprops/action-gh-release@v2
@@ -101,6 +110,7 @@ jobs:
           release/TGEngine-Windows.exe
           release/TGEngine-Linux
           release/TGEngine-macOS
+          release/SHA256SUMS.txt
         generate_release_notes: false
         draft: false
         prerelease:  false
