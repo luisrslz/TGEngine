@@ -71,7 +71,7 @@ int main() {
 
     // Amount of repetitions
     unsigned long long repetitions;
-    std::cout << config::YELLOW << "Repetions?" << config::RESET << "\n-> ";
+    std::cout << config::YELLOW << "Repetitions?" << config::RESET << "\n-> ";
     std::cin >> repetitions;
 
     // -------------- MULTI-THREAD ----------------
