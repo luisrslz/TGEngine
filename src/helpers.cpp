@@ -46,6 +46,9 @@ void handleInputFailure() {
 
 void clearScreen() {
 #ifdef _WIN32
+    // utf-8 output 
+    SetConsoleOutputCP(CP_UTF8);
+
     // makes windows-terminal compatible with colors
     HANDLE hOut = GetStdHandle(STD_OUTPUT_HANDLE);
     if (hOut != INVALID_HANDLE_VALUE) {
