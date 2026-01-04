@@ -1,0 +1,108 @@
+name: Release
+
+on:  
+  push: 
+    tags:
+      - 'v*'
+
+permissions:
+  contents:  write
+
+jobs:  
+  build-windows:
+    name: Build Windows
+    runs-on: windows-latest
+    
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+    
+    - name: Configure CMake (Static Runtime)
+      run: cmake -S . -B build -DCMAKE_BUILD_TYPE=Release -DCMAKE_MSVC_RUNTIME_LIBRARY=MultiThreaded
+    
+    - name: Build
+      run: cmake --build build --config Release
+    
+    - name: Upload Windows executable
+      uses: actions/upload-artifact@v4
+      with:  
+        name: TGEngine-Windows
+        path: TGEngine.exe 
+
+  build-linux: 
+    name: Build Linux
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+    
+    - name: Install dependencies
+      run:  sudo apt-get update && sudo apt-get install -y cmake build-essential
+    
+    - name: Configure CMake (Static Linking)
+      run: cmake -S .  -B build -DCMAKE_BUILD_TYPE=Release -DCMAKE_EXE_LINKER_FLAGS="-static-libgcc -static-libstdc++"
+    
+    - name: Build
+      run: cmake --build build --config Release
+    
+    - name: Upload Linux executable
+      uses: actions/upload-artifact@v4
+      with: 
+        name: TGEngine-Linux
+        path: TGEngine
+
+  build-macos:  
+    name:  Build macOS
+    runs-on: macos-latest
+    
+    steps: 
+    - name: Checkout repository
+      uses: actions/checkout@v4
+    
+    - name: Configure CMake
+      run: cmake -S . -B build -DCMAKE_BUILD_TYPE=Release
+    
+    - name: Build
+      run: cmake --build build --config Release
+    
+    - name:  Upload macOS executable
+      uses: actions/upload-artifact@v4
+      with:  
+        name:  TGEngine-macOS
+        path:  TGEngine
+  release: 
+    name: Create Release
+    needs: [build-windows, build-linux, build-macos]
+    runs-on: ubuntu-latest
+    
+    steps: 
+    - name: Checkout repository
+      uses: actions/checkout@v4
+    
+    - name: Download all artifacts
+      uses: actions/download-artifact@v4
+      with: 
+        path: artifacts
+    
+    - name: Prepare release files
+      run: |
+        mkdir -p release
+        cp artifacts/TGEngine-Windows/TGEngine.exe release/TGEngine-Windows.exe
+        cp artifacts/TGEngine-Linux/TGEngine release/TGEngine-Linux
+        chmod +x release/TGEngine-Linux
+        cp artifacts/TGEngine-macOS/TGEngine release/TGEngine-macOS
+        chmod +x release/TGEngine-macOS
+    
+    - name: Create GitHub Release
+      uses: softprops/action-gh-release@v2
+      with:  
+        files:  |
+          release/TGEngine-Windows.exe
+          release/TGEngine-Linux
+          release/TGEngine-macOS
+        generate_release_notes: false
+        draft: false
+        prerelease:  false
+      env:  
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
