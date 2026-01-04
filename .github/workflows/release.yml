@@ -1,21 +1,21 @@
 name: Release
 
-on: 
-  push:
+on:  
+  push: 
     tags:
       - 'v*'
 
 permissions:
-  contents: write
+  contents:  write
 
-jobs: 
+jobs:  
   build-windows:
-    name:  Build Windows
+    name: Build Windows
     runs-on: windows-latest
     
     steps:
     - name: Checkout repository
-      uses: actions/checkout@v4
+      uses:  actions/checkout@v4
     
     - name: Configure CMake (Static Runtime)
       run: cmake -S . -B build -DCMAKE_BUILD_TYPE=Release -DCMAKE_MSVC_RUNTIME_LIBRARY=MultiThreaded
@@ -25,17 +25,17 @@ jobs:
     
     - name:  Upload Windows artifact
       uses: actions/upload-artifact@v4
-      with: 
-        name: TGEngine-Windows
-        path: build/Release/TGEngine.exe
+      with:  
+        name:  TGEngine-Windows
+        path: TGEngine.exe 
 
-  build-linux:
+  build-linux: 
     name: Build Linux
     runs-on: ubuntu-latest
     
     steps:
     - name: Checkout repository
-      uses:  actions/checkout@v4
+      uses: actions/checkout@v4
     
     - name: Install dependencies
       run:  sudo apt-get update && sudo apt-get install -y cmake build-essential
@@ -46,18 +46,18 @@ jobs:
     - name: Build
       run: cmake --build build --config Release
     
-    - name: Upload Linux artifact
+    - name:  Upload Linux artifact
       uses: actions/upload-artifact@v4
-      with:
-        name:  TGEngine-Linux
+      with: 
+        name: TGEngine-Linux
         path: TGEngine
 
-  build-macos: 
-    name: Build macOS
+  build-macos:  
+    name:  Build macOS
     runs-on: macos-latest
     
-    steps:
-    - name: Checkout repository
+    steps: 
+    - name:  Checkout repository
       uses: actions/checkout@v4
     
     - name: Configure CMake
@@ -68,12 +68,11 @@ jobs:
     
     - name:  Upload macOS artifact
       uses: actions/upload-artifact@v4
-      with: 
-        name: TGEngine-macOS
-        path: TGEngine
-
-  release:
-    name:  Create Release
+      with:  
+        name:  TGEngine-macOS
+        path:  TGEngine
+  release: 
+    name: Create Release
     needs: [build-windows, build-linux, build-macos]
     runs-on: ubuntu-latest
     
@@ -81,7 +80,7 @@ jobs:
     - name:  Checkout repository
       uses: actions/checkout@v4
     
-    - name:  Download all artifacts
+    - name: Download all artifacts
       uses: actions/download-artifact@v4
       with: 
         path: artifacts
@@ -97,13 +96,13 @@ jobs:
     
     - name: Create GitHub Release
       uses: softprops/action-gh-release@v2
-      with: 
-        files: |
+      with:  
+        files:  |
           release/TGEngine-Windows.exe
           release/TGEngine-Linux
           release/TGEngine-macOS
         generate_release_notes: true
         draft: false
         prerelease:  false
-      env: 
+      env:  
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
