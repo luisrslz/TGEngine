@@ -5,7 +5,8 @@ A fast, multithreaded C++ engine for simulating the card game **“The Game”**
 > ⚠️ Disclaimer  
 > This project is an **independent simulation engine**.  
 > It contains **no original assets, artwork, text, or rulebook excerpts** from the official game.  
-> It is not affiliated with or endorsed by NSV or Steffen Benndorf.
+> It is not affiliated with or endorsed by NSV or Steffen Benndorf.  
+> See the official instructions on [NSV’s website](https://www.nsv.de/wp-content/uploads/2024/04/TheGame_GB.pdf).  
 
 ---
 ## Demo
