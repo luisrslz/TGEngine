@@ -78,7 +78,7 @@ _Note: Windows SmartScreen may show a warning or Windows Defender may falsely de
 - Download the source code from the newest [Release](https://github.com/luisrslz/TGEngine/releases) or clone the repo.
 ```
 cmake -S . -B build -DCMAKE_BUILD_TYPE=Release 
-cmake --build build --config Release
+cmake --build build
 ./TGEngine # .\TGEngine on Windows
 ```
 
