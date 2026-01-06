@@ -100,9 +100,11 @@ int main() {
 
     // Print 
     while (stats::losses + stats::wins < repetitions) {
-        std::cout << "\r" << stats::losses + stats::wins;
-        std::this_thread::sleep_for(std::chrono::milliseconds(10));
+        printProgress(repetitions);
+        std::this_thread::sleep_for(std::chrono::milliseconds(200));
     }
+    // Final update
+    printProgress(repetitions);
 
     // wait for all threads to finish
     for (auto &t : threads) {
