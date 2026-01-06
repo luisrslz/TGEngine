@@ -167,7 +167,7 @@ bool Player::playBestMoves() {
 
     while (plays < minPlays || movePrivilege()) {
 
-        // First: Pile, Second: Card; ==> .first == 0 -> no Move found
+        // First: Card, Second: Pile; ==> .second == 0 -> no Move found
         std::pair<unsigned int, unsigned int> bestMove;
         bestMove = calculateMove();
 
