@@ -9,20 +9,6 @@
 #include <windows.h>
 #endif // _WIN32
 
-void askPlayerCount(unsigned int &playerCount) {
-    std::cout << config::YELLOW << "\nPlease enter the amount of player(s)! (1-" << config::MAX_PLAYERS << ")\n"
-              << config::RESET << "-> ";
-    std::cin >> playerCount;
-    while (playerCount < 1 || playerCount > config::MAX_PLAYERS || !std::cin) {
-        handleInputFailure();
-        std::cout << config::RED << "ERROR." 
-                  << config::YELLOW << "\n\nPlease enter a valid amount! (1-"
-                  << config::MAX_PLAYERS << ")\n"
-                  << config::RESET << "-> ";
-        std::cin >> playerCount;
-    }
-}
-
 std::vector<Player> createPlayers(unsigned int playerCount, Game &game) {
     std::vector<Player> temp;
 
@@ -55,15 +41,6 @@ void printProgress(const unsigned long long& repetitions) {
     }
     // Flush ensures equal output speed on all OS's
     std::cout << "] " << int(progress * 100.0) << "%" << std::flush;
-}
-
-
-void handleInputFailure() {
-
-    if (!std::cin) {
-        std::cin.clear();
-        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-    }
 }
 
 void clearScreen() {
