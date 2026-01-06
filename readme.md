@@ -79,6 +79,15 @@ TGEngine-Windows.exe
 
 _Note: Windows SmartScreen may show a warning because this executable is not code-signed or is not yet widely recognized. You can verify the integrity of the download by checking its SHA-256 hash against the value provided in the release file `SHA256SUMS.txt`, or by building the executable yourself from the source code in this repository._
 
+### Build Manually
+- Requirements: C++20, CMake
+- Download the source code from the newest [Release](https://github.com/luisrslz/TGEngine/releases)
+```
+cmake -S . -B build -DCMAKE_BUILD_TYPE=Release 
+cmake --build build --config Release
+./TGEngine # .\TGEngine on Windows
+```
+
 ### Verify integrity
 ```
 # Linux / macOS
