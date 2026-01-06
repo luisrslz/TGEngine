@@ -1,5 +1,6 @@
 #include "helpers.hpp"
 #include "config.hpp"
+#include "stats.hpp"
 #include <iostream>
 #include <limits>
 
@@ -33,6 +34,27 @@ std::vector<Player> createPlayers(unsigned int playerCount, Game &game) {
     }
 
     return temp;
+}
+
+void printProgress(const unsigned long long& repetitions) {
+    // Width = 41 to align with output box
+    const int barWidth = 41;
+
+    unsigned long long done = stats::wins.load() + stats::losses.load();
+    double progress = static_cast<double>(done) / repetitions;
+    int pos = static_cast<int>(barWidth * progress);
+    std::cout << "\r["; // start of bar
+    for (int i = 0; i < barWidth; ++i) {
+        if (i < pos) {
+            std::cout << "=";
+        } else if (i == pos) {
+            std::cout << ">";
+        } else {
+            std::cout << " ";
+        }
+    }
+    // Flush ensures equal output speed on all OS's
+    std::cout << "] " << int(progress * 100.0) << "%" << std::flush;
 }
 
 
