@@ -2,14 +2,32 @@
 #include "config.hpp"
 
 #include <algorithm>
+#include <iostream>
 #include <random>
 #include <vector>
+#include <stdexcept>
 
 int Game::stackSize() const { return stackPile.size(); }
 
 std::array<int, 4> Game::getTopCards() const { return topCards; }
 
 void Game::setTopCard(int pile, int card) {
+
+    // Prevent illegal moves
+    if (pile == config::UP1 || pile == config::UP2) {
+        if (card <= topCards.at(pile) && !(topCards.at(pile) - config::SPECIAL_RULE_DIFF == card)) [[unlikely]] {
+            std::cerr << "Tried to set UP stack with lower/equal card: " << card 
+                      << " on top of " << topCards.at(pile) << "\n";
+            throw std::logic_error("\nError: Tried to set UP stack with lower/equal card.");
+        }
+    } else {
+        if (card >= topCards.at(pile) && !(topCards.at(pile) + config::SPECIAL_RULE_DIFF == card)) [[unlikely]] {
+            std::cerr << "Tried to set DOWN stack with higher/equal card: " << card 
+                      << " on top of " << topCards.at(pile) << "\n";
+            throw std::logic_error("\nError: Tried to set DOWN stack with higher/equal card.");
+        }
+    }
+    
     topCards.at(pile) = card;
 }
 
