@@ -65,7 +65,7 @@ chmod +x ./TGEngine-<OS>
 # Execute
 ./TGEngine
 ```
-_Note: macOS-Gatekeeper might block the execution for security reasons. In this case run `xattr -d com.apple.quarantine ./TGEngine` before executing. Also see [Verify Integrity](https://github.com/luisrslz/TGEngine?tab=readme-ov-file#verify-integrity)._
+_Note: macOS-Gatekeeper might block the execution for security reasons. In this case run `xattr -d com.apple.quarantine ./TGEngine` before executing. Alternatively you can always build the program yourself with the provided source code._
 #### Windows
 - In File Explorer, double-click `TGEngine-Windows.exe`
 - Run from Console:
@@ -77,11 +77,11 @@ _Note: macOS-Gatekeeper might block the execution for security reasons. In this 
 TGEngine-Windows.exe
 ```
 
-_Note: Windows SmartScreen may show a warning because this executable is not code-signed or is not yet widely recognized. You can verify the integrity of the download by checking its SHA-256 hash against the value provided in the release file `SHA256SUMS.txt`, or by building the executable yourself from the source code in this repository._
+_Note: Windows SmartScreen may show a warning or Windows Defender may falsely detect a virus because this executable is not code-signed or is not yet widely recognized. You can verify the integrity of the download by checking its SHA-256 hash against the value provided in the release file `SHA256SUMS.txt`, or by building the executable yourself from the source code in this repository._
 
 ### Build Manually
 - Requirements: C++20, CMake
-- Download the source code from the newest [Release](https://github.com/luisrslz/TGEngine/releases)
+- Download the source code from the newest [Release](https://github.com/luisrslz/TGEngine/releases) or clone the repo.
 ```
 cmake -S . -B build -DCMAKE_BUILD_TYPE=Release 
 cmake --build build --config Release
