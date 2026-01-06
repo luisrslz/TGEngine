@@ -61,6 +61,10 @@ bool Player::movePrivilege() {
 
 void Player::predictSpecial(std::pair<unsigned int, unsigned int>& bestMove) {
 
+    if (bestMove.first == 0) {
+        return; // no move found
+    }
+
     bool isUp = (bestMove.second == config::UP1 || bestMove.second == config::UP2);
 
     // 12 -> 22 -> 32 can happen only MAX_HANDCARDS times 
