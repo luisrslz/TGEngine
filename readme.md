@@ -88,16 +88,6 @@ cmake --build build --config Release
 ./TGEngine # .\TGEngine on Windows
 ```
 
-### Verify integrity
-```
-# Linux / macOS
-sha256sum -c SHA256SUMS.txt
-
-# Windows (PowerShell)
-Get-FileHash .\TGEngine-Windows.exe -Algorithm SHA256
-# Compare the displayed hash with the entry in SHA256SUMS.txt
-```
-
 ---
 
 ## License
