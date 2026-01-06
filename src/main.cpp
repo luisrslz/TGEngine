@@ -1,7 +1,7 @@
 #include <chrono>
 #include <iostream>
 #include <vector>
-
+#include <limits>
 #include <thread>
 
 #include "config.hpp"
@@ -66,13 +66,16 @@ int main() {
     printLogo();
 
     // Amount of players
-    unsigned int playerCount;
-    askPlayerCount(playerCount);
+    int playerCount;
+    std::cout << config::YELLOW << "\nPlease enter the amount of player(s)! (1-" 
+              << config::MAX_PLAYERS << ")\n"
+              << config::RESET << "-> ";
+    playerCount = getInput(1, config::MAX_PLAYERS);
 
     // Amount of repetitions
     unsigned long long repetitions;
-    std::cout << config::YELLOW << "Repetitions?" << config::RESET << "\n-> ";
-    std::cin >> repetitions;
+    std::cout << config::YELLOW << "\nRepetitions?" << config::RESET << "\n-> ";
+    repetitions = getInput(1ull, std::numeric_limits<unsigned long long>::max());
 
     // -------------- MULTI-THREAD ----------------
 
