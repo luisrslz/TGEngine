@@ -18,37 +18,31 @@ A fast, multithreaded C++ engine for simulating the card game **“The Game”**
 
 This engine simulates complete rounds of *"The Game"* to analyze:
 
-- win probability  
-- average leftover cards  
-- the impact of different player counts  
-- how well a deterministic strategy performs  
-- statistical behavior over thousands of iterations  
+- Win probability  
+- Average leftover cards  
+- How many rounds each game takes on average 
+- How often the special rule occurs
+- Statistical behavior over millions of iterations  
+- The impact of different player counts  
 
-It is designed for speed and clarity, using **multithreading** to distribute simulations across all CPU cores.
+It uses **multithreading** to make the simulations as fast as possible.
 
 ---
 
 ## How It Works
 
-1. The user selects the number of players (1–5).  
-2. The user enters the number of simulations (“repetitions”).  
+1. Select the number of players (1–5).  
+2. Enter the number of simulations (“repetitions”). More simulations = Higher accuracy of the results. 
 3. The engine simulates an entire play round as many times as entered.
 4. Results are aggregated and displayed.
 
 ---
 
-## Features
-
-- Supports Windows, Linux and macOS
-- Written in C++  
-- Multithreaded
-- Implements: 
-  - Player selection from 1-5
-  - ±10 special rule  
-  - Prediction of ±10 special rule 
-  - Deterministic “best move” strategy 
-  - Configurable game/engine rules (include/config.hpp)
-- Clean separation of game logic, player logic, and engine logic  
+## Features  
+- Player selection from 1-5
+- ±10 special rule _("backwards trick")_ is respected, predicted and prioritized
+- Decides if a player should make more moves than he has to 
+- Millions of simulations in a short amount of time
 - Command‑line interface  
 
 ---
