@@ -99,7 +99,6 @@ int main() {
     repsPerThread -= remains; // reset this if needed in the future
 
     // Print 
-    // this thread could also work but whatever...
     while (stats::losses + stats::wins < repetitions) {
         std::cout << "\r" << stats::losses + stats::wins;
         std::this_thread::sleep_for(std::chrono::milliseconds(10));
