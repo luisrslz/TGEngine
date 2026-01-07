@@ -1,5 +1,7 @@
 #pragma once
 
+#include <utility>
+#include <algorithm>
 #include <vector>
 
 #include "game.hpp"
@@ -38,6 +40,15 @@ class Player {
     // removes a card from handCards
     void removeHandCard(int card);
 
+    // blocks a pile and stores it in blockedPiles
+    void block(int pile);
+
+    // unblocks all piles that were blocked by this player
+    void unblockAll();
+
+    // implemented in algorithm.cpp, check if we should block any piles
+    void checkBlock();
+
     // ========= FOR TESTING PURPOSES =========
     // sets handCards to a predefined vector (for testing)
     void setHandCards(const std::vector<int>& cards) {
@@ -57,7 +68,10 @@ class Player {
     // player's handcards {42, 67, 89, ...}
     std::vector<int> handCards;
 
+    // every player stores the piles he has blocked
+    std::vector<int> blockedPiles;
+
 };
 
 // Free function declaration for testability (defined in algorithm.cpp)
-bool inPrivRange(int top, int card, bool isUp);
+bool inPrivRange(int top, int card, bool isUp, bool block = false);
