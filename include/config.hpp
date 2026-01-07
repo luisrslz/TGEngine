@@ -19,7 +19,7 @@ constexpr int BLOCK_RANGE = 2;// If the player has a card within a range of {} t
                                // he tells others to not to play on that pile. 
                                // -> Allowed communication between players
 
-constexpr int IGNORE_BLOCK_RANGE = 1; // If a player has a card within this range to any pile,
+constexpr int IGNORE_BLOCK_RANGE = 3; // If a player has a card within this range to any pile,
                                          // he may surpass the block and play on that pile anyway
 
 constexpr int SPECIAL_RULE_DIFF = 10; // Difference for special rule to apply
