@@ -29,11 +29,15 @@ constexpr std::array<Special, 4> specialRules {{
 
 // checks if card is within privilege range of top card
 // card: 92, range: 3, top: 89 -> true
-bool inPrivRange(int top, int card, bool isUp) {
+bool inPrivRange(int top, int card, bool isUp, bool block) {
+    int range = block ? config::BLOCK_RANGE : config::PRIVILEGE_RANGE;
+
     if (isUp) {
-        return top < card && top + config::PRIVILEGE_RANGE >= card;
+        return top < card && top + range >= card;
     } else {
-        return top > card && top - config::PRIVILEGE_RANGE <= card;
+        return top > card && top - range <= card;
+    }
+}
     }
 }
 
