@@ -38,6 +38,26 @@ bool inPrivRange(int top, int card, bool isUp, bool block) {
         return top > card && top - range <= card;
     }
 }
+
+void Player::checkBlock() {
+    int smallestDiff = std::numeric_limits<int>::max();
+    int blockingPile = -1;
+
+    // After performing all moves, check if we should block any piles
+    for (const auto& card : handCards) {
+        for (const auto& r : algm::specialRules) {
+            const int top = m_game.getTopCards().at(r.stack);
+            if (inPrivRange(top, card, r.isUp, true) 
+            && !(std::abs(top - card) >= smallestDiff)) {
+ 
+                smallestDiff = std::abs(top - card);
+                blockingPile = r.stack;
+            }
+        }
+    }
+
+    if (blockingPile != -1) {
+        block(blockingPile);
     }
 }
 
