@@ -15,6 +15,13 @@ constexpr int PRIVILEGE_RANGE = 3; // If the player has a card within a range of
                                    // should he perform a extra move?
                                    // Tests showed that 3 leads to highest win-percentage
 
+constexpr int BLOCK_RANGE = 2;// If the player has a card within a range of {} to any pile,
+                               // he tells others to not to play on that pile. 
+                               // -> Allowed communication between players
+
+constexpr int IGNORE_BLOCK_RANGE = 1; // If a player has a card within this range to any pile,
+                                         // he may surpass the block and play on that pile anyway
+
 constexpr int SPECIAL_RULE_DIFF = 10; // Difference for special rule to apply
                                       // -xy for up piles, +xy for down piles
 
