@@ -30,6 +30,8 @@ int main() {
     std::cout << config::GREEN << "\nEstimated time: "  
               << estimateTime(repetitions, playerCount) 
               << config::RESET << "\n";
+    
+    stats::reset(); // reset stats after time estimation
 
     // -------------- MULTI-THREAD ----------------
 
