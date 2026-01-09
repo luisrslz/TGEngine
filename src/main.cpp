@@ -99,7 +99,6 @@ int main() {
         }
         threads.emplace_back(threadWork, rep, playerCount);
     }
-    repsPerThread -= remains; // reset this if needed in the future
 
     // Print 
     while (stats::losses + stats::wins < repetitions) {
