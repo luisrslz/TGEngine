@@ -80,3 +80,10 @@ void multiThread(std::vector<std::thread>& threads,
         threads.emplace_back(simulate, rep, playerCount);
     }
 }
+
+void singleThread(std::vector<std::thread>& threads,
+                  const unsigned long long& repetitions, const unsigned int& playerCount) {
+    
+    threads.emplace_back(simulate, repetitions, playerCount);
+
+}
