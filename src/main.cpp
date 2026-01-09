@@ -5,60 +5,9 @@
 #include <thread>
 
 #include "config.hpp"
-#include "game.hpp"
 #include "helpers.hpp"
-#include "player.hpp" 
 #include "stats.hpp"
-
-// This function simulates one game
-bool runGameLoop(std::vector<Player> &players, unsigned int playerCount, Game &game) {
-    int currentPlayer = 0;
-
-    while (true) {
-        // Play the best moves
-        if (players[currentPlayer].getCardCount() > 0) {
-            if (!players[currentPlayer].playBestMoves()) {
-                // -> Game OVER
-                break;
-            }
-        }
-
-        // -> Draw Cards
-        if (players[currentPlayer].getCardCount() != game.getMaxHandCards() && game.stackSize() > 0) {
-            players[currentPlayer].drawCards();
-        }
-
-        if (game.getLeftOver() == 0) {
-            break;
-            // WON! no cards left.
-        }
-
-        // Rotate through players
-        currentPlayer = (currentPlayer + 1) % playerCount;
-        ++stats::totalRounds; // one round completed
-    }
-    
-    stats::handleLeftOver(game.getLeftOver());
-
-    if (game.getLeftOver() == 0) {
-        return true; // Won
-    } else {
-        return false; // Lost
-    }
-}
-
-// Work function for each thread
-void threadWork(unsigned long long iterations, unsigned int playerCount) {
-    for (unsigned long long i = 0; i < iterations; ++i) {
-        Game game(playerCount);
-        std::vector<Player> players = createPlayers(playerCount, game);
-        if (runGameLoop(players, playerCount, game)) {
-            ++stats::wins;
-        } else {
-            ++stats::losses;
-        }
-    }
-}
+#include "play.hpp"
 
 int main() {
     // Welcome Message
@@ -78,28 +27,11 @@ int main() {
     repetitions = getInput(1ull, std::numeric_limits<unsigned long long>::max());
 
     // -------------- MULTI-THREAD ----------------
-
-    int numThreads = std::thread::hardware_concurrency();
-    // safety
-    if (numThreads == 0) numThreads = 4;
-
-    int repsPerThread = repetitions / numThreads;
-    int remains = repetitions % numThreads;
-
-    std::vector<std::thread> threads;
-
-    std::cout << "\nCalculating...\n";
-
-    //put all threads to work
-    for (int i = 1; i <= numThreads; ++i) {
-        int rep = repsPerThread;
-        if (i == numThreads) {
-            // Last thread gets the remaining games
-            rep += remains;
-        }
-        threads.emplace_back(threadWork, rep, playerCount);
-    }
-
+    
+    std::vector<std::thread> threads; 
+    
+    multiThread(threads, repetitions, playerCount);
+    
     // Print 
     while (stats::losses + stats::wins < repetitions) {
         printProgress(repetitions);

@@ -16,6 +16,7 @@ set(SOURCES
     src/helpers.cpp
     src/player.cpp
     src/stats.cpp
+    src/play.cpp
 )
 # executable
 add_executable(TGEngine ${SOURCES})
