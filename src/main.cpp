@@ -15,7 +15,7 @@ int main() {
     printLogo();
 
     // Amount of players
-    int playerCount;
+    unsigned int playerCount;
     std::cout << config::YELLOW << "\nPlease enter the amount of player(s)! (1-" 
               << config::MAX_PLAYERS << ")\n"
               << config::RESET << "-> ";
