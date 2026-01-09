@@ -131,6 +131,7 @@ void stats::print(unsigned long long repetitions, int playerCount) {
     printSeparator();
     printRow("Players: ", std::to_string(playerCount), config::BLUE);
     printRow("Total Games:", formatNumber(repetitions), config::BLUE);
+    printRow("Total Time Taken:", timeTaken, config::BLUE);
     printSeparator();
     printRow("Wins:", formatNumber(wins), config::GREEN);
     printRow("Losses:", formatNumber(losses), config::RED);

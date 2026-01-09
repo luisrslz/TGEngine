@@ -36,6 +36,8 @@ int main() {
     std::cout << "\nCalculating...\n";
     
     std::vector<std::thread> threads; 
+
+    auto start = std::chrono::high_resolution_clock::now();
     
     multiThread(threads, repetitions, playerCount);
     
@@ -44,6 +46,11 @@ int main() {
         printProgress(repetitions);
         std::this_thread::sleep_for(std::chrono::milliseconds(200));
     }
+
+    auto end = std::chrono::high_resolution_clock::now();
+
+    stats::timeTaken = timeToString(end-start);
+
     // Final update
     printProgress(repetitions);
 
