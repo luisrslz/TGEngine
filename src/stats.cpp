@@ -114,6 +114,21 @@ std::string stats::mostUsedStack() {
     return mostUsed + " (" + formatNumber(maxUses) + " uses)";
 }
 
+void stats::reset() {
+    wins = 0;
+    losses = 0;
+    leftOvers = 0;
+    minLeftOver = std::numeric_limits<unsigned long long>::max();
+    maxLeftOver = 0;
+    totalRounds = 0;
+    specialMove = 0;
+    stackUP1 = 0;
+    stackUP2 = 0;
+    stackDOWN1 = 0;
+    stackDOWN2 = 0;
+    timeTaken.clear();
+}
+
 void stats::print(unsigned long long repetitions, int playerCount) {
     double winRate = static_cast<double>(wins) / (wins + losses) * 100.0;
     double lossRate = static_cast<double>(losses) / (wins + losses) * 100.0;

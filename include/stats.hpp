@@ -36,4 +36,7 @@ std::string mostUsedStack();
 // to change leftOver stats
 void handleLeftOver(const unsigned int& leftOver);
 
+// resets all stats to initial values
+void reset();
+
 }
