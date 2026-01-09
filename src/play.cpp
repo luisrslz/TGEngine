@@ -68,8 +68,6 @@ void multiThread(std::vector<std::thread>& threads,
     int repsPerThread = repetitions / numThreads;
     int remains = repetitions % numThreads;
 
-    std::cout << "\nCalculating...\n";
-
     //put all threads to work
     for (int i = 1; i <= numThreads; ++i) {
         int rep = repsPerThread;

@@ -27,6 +27,8 @@ int main() {
     repetitions = getInput(1ull, std::numeric_limits<unsigned long long>::max());
 
     // -------------- MULTI-THREAD ----------------
+
+    std::cout << "\nCalculating...\n";
     
     std::vector<std::thread> threads; 
     
