@@ -8,6 +8,7 @@
 #include "helpers.hpp"
 #include "stats.hpp"
 #include "play.hpp"
+#include "timer.hpp"
 
 int main() {
     // Welcome Message
@@ -25,6 +26,10 @@ int main() {
     unsigned long long repetitions;
     std::cout << config::YELLOW << "\nRepetitions?" << config::RESET << "\n-> ";
     repetitions = getInput(1ull, std::numeric_limits<unsigned long long>::max());
+
+    std::cout << config::GREEN << "\nEstimated time: "  
+              << estimateTime(repetitions, playerCount) 
+              << config::RESET << "\n";
 
     // -------------- MULTI-THREAD ----------------
 
