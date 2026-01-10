@@ -200,6 +200,8 @@ bool Player::playBestMoves() {
     // Unblock all piles at the start of moves
     unblockAll();
 
+    bool skipBlocks = false;
+
     unsigned int plays = 0; // how many plays the Player has done
 
     while (plays < minPlays || movePrivilege()) {
@@ -210,6 +212,13 @@ bool Player::playBestMoves() {
 
         // -> no valid move found 
         if (bestMove.first == 0 && plays < minPlays) {
+            if (!skipBlocks) {
+                // Try unblocking all piles once to find a move
+                m_game.releaseAllBlocks();
+
+                skipBlocks = true;
+                continue;
+            }
             return false;
         } else if (bestMove.first == 0) {
             // Player made all necessary moves, so game goes on
