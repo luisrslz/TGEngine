@@ -161,14 +161,15 @@ std::pair<unsigned int, unsigned int> Player::calculateMove() {
         for (size_t pile = 0; pile < allDiffs.size(); ++pile) {
             const int diff = allDiffs.at(pile);
 
-            // Skip blocked piles but surpass block if diff is close enough
-            if (m_game.isPileBlocked(pile) && diff > config::IGNORE_BLOCK_RANGE) {
-                continue; // Can't play on blocked piles
-            }
-
             // Ignore negatives
             if (diff < 0) {
                 continue;
+            }
+
+            // Skip blocked piles but surpass block if diff is close enough
+            if (m_game.isPileBlocked(pile) && diff > config::IGNORE_BLOCK_RANGE) {
+                //std::cout << "Skipped blocked pile " << pile << " with diff " << diff << "\n";
+                continue; // Can't play on blocked piles
             }
 
             // Found a new best move
