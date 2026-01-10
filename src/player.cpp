@@ -20,6 +20,19 @@ void Player::drawCards() {
     }
 }
 
+void Player::block(int pile) {
+    m_game.blockPile(pile);
+    blockedPiles.push_back(pile);
+    
+}
+
+void Player::unblockAll()  {
+    for (const auto& p : blockedPiles) {
+        m_game.unblockPile(p);
+    }
+    blockedPiles.clear();
+}
+
 void Player::removeHandCard(int card) {
     handCards.erase(std::remove(handCards.begin(), handCards.end(), card), handCards.end());
 }
