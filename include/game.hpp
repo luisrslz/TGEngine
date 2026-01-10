@@ -41,6 +41,8 @@ class Game {
 		blockedPiles.at(pile) = false;
 	}
 
+  void releaseAllBlocks();
+
 	// Check if pile is blocked
 	bool isPileBlocked(int pile) const {
 		return blockedPiles.at(pile);
