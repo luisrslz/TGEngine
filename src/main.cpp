@@ -8,6 +8,7 @@
 #include "helpers.hpp"
 #include "stats.hpp"
 #include "play.hpp"
+#include "timer.hpp"
 
 int main() {
     // Welcome Message
@@ -15,7 +16,7 @@ int main() {
     printLogo();
 
     // Amount of players
-    int playerCount;
+    unsigned int playerCount;
     std::cout << config::YELLOW << "\nPlease enter the amount of player(s)! (1-" 
               << config::MAX_PLAYERS << ")\n"
               << config::RESET << "-> ";
@@ -26,11 +27,19 @@ int main() {
     std::cout << config::YELLOW << "\nRepetitions?" << config::RESET << "\n-> ";
     repetitions = getInput(1ull, std::numeric_limits<unsigned long long>::max());
 
+    std::cout << config::GREEN << "\nEstimated time: ~"  
+              << estimateTime(repetitions, playerCount)
+              << config::RESET << "\n";
+    
+    stats::reset(); // reset stats after time estimation
+
     // -------------- MULTI-THREAD ----------------
 
     std::cout << "\nCalculating...\n";
     
     std::vector<std::thread> threads; 
+
+    auto start = std::chrono::steady_clock::now();
     
     multiThread(threads, repetitions, playerCount);
     
@@ -39,6 +48,11 @@ int main() {
         printProgress(repetitions);
         std::this_thread::sleep_for(std::chrono::milliseconds(200));
     }
+
+    auto end = std::chrono::steady_clock::now();
+
+    stats::timeTaken = timeToString(end-start);
+
     // Final update
     printProgress(repetitions);
 

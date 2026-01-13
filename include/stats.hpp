@@ -22,6 +22,8 @@ inline std::atomic<unsigned long long> stackUP2{}; // times stack UP2 was used
 inline std::atomic<unsigned long long> stackDOWN1{}; // times stack DOWN1 was used
 inline std::atomic<unsigned long long> stackDOWN2{}; // times stack DOWN2 was used
 
+inline std::string timeTaken; // total time taken as string 
+
 // prints the stats after all games are finished
 void print(unsigned long long repetitions, int playerCount);
 
@@ -33,5 +35,8 @@ std::string mostUsedStack();
 
 // to change leftOver stats
 void handleLeftOver(const unsigned int& leftOver);
+
+// resets all stats to initial values
+void reset();
 
 }
