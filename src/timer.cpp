@@ -34,7 +34,7 @@ std::string estimateTime(const unsigned long long& repetitions, unsigned int& pl
 
     std::vector<std::thread> temp;
 
-    auto start = std::chrono::high_resolution_clock::now();
+    auto start = std::chrono::steady_clock::now();
 
     multiThread(temp, SIMULATION_GAMES, playerCount);
 
@@ -42,7 +42,7 @@ std::string estimateTime(const unsigned long long& repetitions, unsigned int& pl
         t.join();
     }
 
-    auto end = std::chrono::high_resolution_clock::now();
+    auto end = std::chrono::steady_clock::now();
 
     std::chrono::duration<double> duration = end - start;
 
