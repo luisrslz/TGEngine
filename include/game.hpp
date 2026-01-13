@@ -48,6 +48,8 @@ class Game {
 		return blockedPiles.at(pile);
 	}
 
+  bool anyPileBlocked() const;
+
     // ======== FOR TESTING PURPOSES =========
     // sets topCards to a predefined vector (for testing)
     void setTopCards(const std::array<int, 4>& tops) { 

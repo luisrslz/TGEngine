@@ -212,7 +212,7 @@ bool Player::playBestMoves() {
 
         // -> no valid move found 
         if (bestMove.first == 0 && plays < minPlays) {
-            if (!skipBlocks) {
+            if (!skipBlocks && m_game.anyPileBlocked()) {
                 // Try unblocking all piles once to find a move
                 m_game.releaseAllBlocks();
 

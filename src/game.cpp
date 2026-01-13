@@ -51,6 +51,15 @@ void Game::releaseAllBlocks() {
     }
 }
 
+bool Game::anyPileBlocked() const {
+    for (const auto& pile : blockedPiles) {
+        if (pile) {
+            return true;
+        }
+    }
+    return false;
+}
+
 // maxHandCards gets defined according to instructions
 Game::Game(const unsigned int& playerCount) 
           : maxHandCards(playerCount >= 3 ? 6 : (playerCount == 2 ? 7 : 8)) {
