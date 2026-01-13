@@ -23,7 +23,9 @@ bool runGameLoop(std::vector<Player> &players, const unsigned int& playerCount, 
         if (game.stackSize() > 0) {
             players[currentPlayer].drawCards();
 
-            players[currentPlayer].checkBlock();
+            if (playerCount == 2) {
+                players[currentPlayer].checkBlock();
+            }
         }
 
         if (game.getLeftOver() == 0) {
