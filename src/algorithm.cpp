@@ -29,11 +29,35 @@ constexpr std::array<Special, 4> specialRules {{
 
 // checks if card is within privilege range of top card
 // card: 92, range: 3, top: 89 -> true
-bool inPrivRange(int top, int card, bool isUp) {
+bool inPrivRange(int top, int card, bool isUp, bool block) {
+    int range = block ? config::BLOCK_RANGE : config::PRIVILEGE_RANGE;
+
     if (isUp) {
-        return top < card && top + config::PRIVILEGE_RANGE >= card;
+        return top < card && top + range >= card;
     } else {
-        return top > card && top - config::PRIVILEGE_RANGE <= card;
+        return top > card && top - range <= card;
+    }
+}
+
+void Player::checkBlock() {
+    int smallestDiff = std::numeric_limits<int>::max();
+    int blockingPile = -1;
+
+    // After performing all moves, check if we should block any piles
+    for (const auto& card : handCards) {
+        for (const auto& r : algm::specialRules) {
+            const int top = m_game.getTopCards().at(r.stack);
+            if (inPrivRange(top, card, r.isUp, true) 
+            && !(std::abs(top - card) >= smallestDiff)) {
+ 
+                smallestDiff = std::abs(top - card);
+                blockingPile = r.stack;
+            }
+        }
+    }
+
+    if (blockingPile != -1) {
+        block(blockingPile);
     }
 }
 
@@ -142,6 +166,12 @@ std::pair<unsigned int, unsigned int> Player::calculateMove() {
                 continue;
             }
 
+            // Skip blocked piles but surpass block if diff is close enough
+            if (m_game.isPileBlocked(pile) && diff > config::IGNORE_BLOCK_RANGE) {
+                //std::cout << "Skipped blocked pile " << pile << " with diff " << diff << "\n";
+                continue; // Can't play on blocked piles
+            }
+
             // Found a new best move
             if (diff < smallestDiff) {
                 smallestDiff = diff;
@@ -167,6 +197,11 @@ bool Player::playBestMoves() {
         minPlays = 1;
     }
 
+    // Unblock all piles at the start of moves
+    unblockAll();
+
+    bool skipBlocks = false;
+
     unsigned int plays = 0; // how many plays the Player has done
 
     while (plays < minPlays || movePrivilege()) {
@@ -177,6 +212,13 @@ bool Player::playBestMoves() {
 
         // -> no valid move found 
         if (bestMove.first == 0 && plays < minPlays) {
+            if (!skipBlocks && m_game.anyPileBlocked()) {
+                // Try unblocking all piles once to find a move
+                m_game.releaseAllBlocks();
+
+                skipBlocks = true;
+                continue;
+            }
             return false;
         } else if (bestMove.first == 0) {
             // Player made all necessary moves, so game goes on

@@ -32,6 +32,24 @@ class Game {
     // getter for maxHandCards
     unsigned int getMaxHandCards() const; 
 
+	// Blocking and unblocking piles
+    void blockPile(int pile) {
+		blockedPiles.at(pile) = true;
+    }
+
+	void unblockPile(int pile) {
+		blockedPiles.at(pile) = false;
+	}
+
+  void releaseAllBlocks();
+
+	// Check if pile is blocked
+	bool isPileBlocked(int pile) const {
+		return blockedPiles.at(pile);
+	}
+
+  bool anyPileBlocked() const;
+
     // ======== FOR TESTING PURPOSES =========
     // sets topCards to a predefined vector (for testing)
     void setTopCards(const std::array<int, 4>& tops) { 
@@ -47,6 +65,8 @@ class Game {
     // stack / pile on which cards are played
     std::array<int, 4> topCards{config::UP_START, config::UP_START, config::DOWN_START,
                                 config::DOWN_START};
+    
+    std::array<bool, 4> blockedPiles{false, false, false, false};
 
     // how many cards are left, gets defined in constructor
     unsigned int leftOver{};
