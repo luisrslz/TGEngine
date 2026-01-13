@@ -27,8 +27,8 @@ int main() {
     std::cout << config::YELLOW << "\nRepetitions?" << config::RESET << "\n-> ";
     repetitions = getInput(1ull, std::numeric_limits<unsigned long long>::max());
 
-    std::cout << config::GREEN << "\nEstimated time: "  
-              << estimateTime(repetitions, playerCount) 
+    std::cout << config::GREEN << "\nEstimated time: ~"  
+              << estimateTime(repetitions, playerCount)
               << config::RESET << "\n";
     
     stats::reset(); // reset stats after time estimation
