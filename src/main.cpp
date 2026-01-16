@@ -17,7 +17,7 @@ int main() {
 
     // Amount of players
     unsigned int playerCount;
-    std::cout << config::YELLOW << "\nPlease enter the amount of player(s)! (1-" 
+    std::cout << config::YELLOW << "\nHow many players? (1-" 
               << config::MAX_PLAYERS << ")\n"
               << config::RESET << "-> ";
     playerCount = getInput(1, config::MAX_PLAYERS);
