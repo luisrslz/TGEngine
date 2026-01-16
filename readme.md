@@ -6,7 +6,19 @@ A fast, multithreaded C++ engine for simulating the card game **“The Game”**
 > This project is an **independent simulation engine**.  
 > It contains **no original assets, artwork, text, or rulebook excerpts** from the official game.  
 > It is not affiliated with or endorsed by NSV or Steffen Benndorf.  
-> See the official instructions on [NSV’s website](https://www.nsv.de/wp-content/uploads/2024/04/TheGame_GB.pdf).  
+> See the official instructions on [NSV’s website](https://www.nsv.de/wp-content/uploads/2024/04/TheGame_GB.pdf).
+---
+## Results
+_You don't need to run the program yourself._   
+The chances of winning "THE GAME" are:   
+
+**1 Player**:  ~ 3.69%   
+**2 Players**: ~ 10.78%   
+**3 Players**: ~ 4.41%   
+**4 Players**: ~ 7.11%   
+**5 Players**: ~ 8.26%
+
+> Percentages with the current [algorithm](https://github.com/luisrslz/TGEngine?tab=readme-ov-file#features). The algorithm lacks many things real players are capable of, therefore the real percentages should be higher. 
 
 ---
 ## Demo
@@ -29,21 +41,22 @@ It uses **multithreading** to make the simulations as fast as possible.
 
 ---
 
+## Features  
+- Player selection from 1-5
+- ±10 special rule _("backwards trick")_ is respected, predicted and prioritized
+- Decides if a player should make more moves than he has to 
+- _[2 Players only]_ Decides if a player should tell the other player to _not_ play on a specific pile
+- Millions of simulations in a short amount of time
+- Command‑line interface  
+
+---
+
 ## How It Works
 
 1. Select the number of players (1–5).  
 2. Enter the number of simulations (“repetitions”). More simulations = Higher accuracy of the results. 
 3. The engine simulates an entire play round as many times as entered.
 4. Results are aggregated and displayed.
-
----
-
-## Features  
-- Player selection from 1-5
-- ±10 special rule _("backwards trick")_ is respected, predicted and prioritized
-- Decides if a player should make more moves than he has to 
-- Millions of simulations in a short amount of time
-- Command‑line interface  
 
 ---
 

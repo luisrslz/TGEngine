@@ -30,6 +30,10 @@ std::string timeToString(const std::chrono::duration<double>& duration) {
 std::string estimateTime(const unsigned long long& repetitions, unsigned int& playerCount) {
     constexpr unsigned long long SIMULATION_GAMES = 100000; // should be enough for estimation
 
+    if (repetitions < SIMULATION_GAMES) {
+        return "0s";
+    }
+
     double multiplier = static_cast<double>(repetitions) / SIMULATION_GAMES;
 
     std::vector<std::thread> temp;
