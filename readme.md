@@ -51,15 +51,6 @@ It uses **multithreading** to make the simulations as fast as possible.
 
 ---
 
-## How It Works
-
-1. Select the number of players (1–5).  
-2. Enter the number of simulations (“repetitions”). More simulations = Higher accuracy of the results. 
-3. The engine simulates an entire play round as many times as entered.
-4. Results are aggregated and displayed.
-
----
-
 ## Run
 Download the suitable executable for your OS in [Releases](https://github.com/luisrslz/TGEngine/releases).
 
