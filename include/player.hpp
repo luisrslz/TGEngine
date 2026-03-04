@@ -1,7 +1,6 @@
 #pragma once
 
 #include <utility>
-#include <algorithm>
 #include <vector>
 
 #include "game.hpp"

@@ -1,8 +1,6 @@
 #include "helpers.hpp"
-#include "config.hpp"
 #include "stats.hpp"
 #include <iostream>
-#include <limits>
 
 #ifdef _WIN32
 #define NOMINMAX // needed sometimes...
@@ -63,17 +61,7 @@ void clearScreen() {
 }
 
 void printLogo() {
-    std::cout
-        << "/\\/\\ ______________ ______________   ________    _____      _____  ___________ /\\/\\\n"
-        << ")/)/ \\__    ___/   |   \\_   _____/  /  _____/   /  _  \\    /     \\ \\_   _____/ )/)\\\n"
-        << "       |    | /    ~    \\    __)_  /   \\  ___  /  /_\\  \\  /  \\ /  \\ |    __)_      \n"
-        << "       |    | \\    Y    /        \\ \\    \\_\\  \\/    |    \\/    Y    \\|        \\     \n"
-        << "       |____|  \\___|_  /_______  /  \\______  /\\____|__  /\\____|__  /_______  /     \n"
-        << "                     \\/        \\/          \\/         \\/         \\/        \\/      \n"
-        << "             ___________ _______    ________.___ _______  ___________              \n"
-        << "             \\_   _____/ \\      \\  /  _____/|   |\\      \\ \\_   _____/              \n"
-        << "              |    __)_  /   |   \\/   \\  ___|   |/   |   \\ |    __)_               \n"
-        << "              |        \\/    |    \\    \\_\\  \\   /    |    \\|        \\              \n"
-        << "             /_______  /\\____|__  /\\______  /___\\____|__  /_______  /              \n"
-        << "                     \\/         \\/        \\/            \\/        \\/             \n\n\n";
+    std::cout << "Welcome to \"THE GAME\"-Engine.\n"
+              << "A fast, multithreaded C++ engine for simulating the card game \"The Game\"\n"
+              << "(originally created by Steffen Benndorf and published by NSV).\n";
 }
