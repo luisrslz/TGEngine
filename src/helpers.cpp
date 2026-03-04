@@ -1,8 +1,6 @@
 #include "helpers.hpp"
-#include "config.hpp"
 #include "stats.hpp"
 #include <iostream>
-#include <limits>
 
 #ifdef _WIN32
 #define NOMINMAX // needed sometimes...
